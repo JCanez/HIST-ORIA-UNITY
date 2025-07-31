@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 34972371432d7a143a07c54b45c7daa2
+timeCreated: 1502258299
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97949
+  packageName: POLYGON Heist - Low Poly 3D Art by Synty
+  packageVersion: 1.9.2
+  assetPath: Assets/Packages/PolygonHeist/Prefab/Items/SM_Item_DuffleBag_Empty_01.prefab
+  uploadId: 737400
