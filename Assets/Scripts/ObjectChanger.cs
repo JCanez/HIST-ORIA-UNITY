@@ -26,18 +26,22 @@ public class ObjectChanger : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (_gameController.GameReady == true)
+        if (_gameController.GameReady == true && _touched == false)
         {
             if (_change == true)
             {
                 Debug.Log("El modelo fue cambiado");
                 _gameController.success++;
+                _gameController.PlaySound(1);
             }
             else
             {
                 Debug.Log("El modelo no fue cambiado");
                 _gameController.mistakes--;
+                _gameController.PlaySound(2);
             }
+
+            _touched = true;
         }
     }
 

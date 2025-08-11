@@ -21,20 +21,34 @@ public class GameController : MonoBehaviour
     [Header("UI")]
     public GameObject beforeStartCanvas;
     public TMP_Text timerBeforeStartTxt;
+    [SerializeField] Animator _lineImageAnim; 
 
     public GameObject inGameCanvas;
-    public TMP_Text timerInGameTxt;
-    public TMP_Text endGameTxt;
-    float _timerInGame;
-    bool _firstime = true;
 
+    public GameObject timerInGameGO;
+    TMP_Text _timerInGameTxt;
+    float _timerInGame;
+    Animator _timerInGameAnim;
+
+    public TMP_Text endGameTxt;
+    bool _firstime = true;
 
     public GameObject gameOverCanvas;
     public TMP_Text totalObjectToChange;
 
+
+    [Header("Sounds")]
+    public AudioClip successAudio;
+    public AudioClip incorrectAudio;
+    AudioSource audioSource;
+
     private void Awake()
     {
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
+        audioSource = GetComponent<AudioSource>();
+
+        _timerInGameTxt = timerInGameGO.GetComponent<TMP_Text>();
+        _timerInGameAnim = timerInGameGO.GetComponent<Animator>();
 
         _gameReady = false;
         success = 0;
@@ -60,6 +74,7 @@ public class GameController : MonoBehaviour
             inGameCanvas.SetActive(false);
             gameOverCanvas.SetActive(true);
 
+            GameReady = false;
             endGameTxt.text = "WINNER";
         }
         else if (mistakes == 0 || _timerInGame < 0 && _firstime == false)
@@ -67,14 +82,19 @@ public class GameController : MonoBehaviour
             inGameCanvas.SetActive(false);
             gameOverCanvas.SetActive(true);
 
+            GameReady = false;
             endGameTxt.text = "GAME OVER";
-            Debug.Log("GAME OVER");
         }
+
+        if (_timerInGame < 3)
+            _timerInGameAnim.enabled = true;
     }
 
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(1.5f);
+
+        _lineImageAnim.enabled = true;
 
         timerBeforeStartTxt.text = "3";
         float duration = 3.0f;
@@ -95,13 +115,14 @@ public class GameController : MonoBehaviour
 
     IEnumerator RestartTimer()
     {
+        _timerInGameAnim.enabled = false;
         _timerInGame = 10;
-        timerInGameTxt.text = "10";
+        _timerInGameTxt.text = "10";
 
         while (_timerInGame > 0)
         {
             _timerInGame -= Time.deltaTime;
-            timerInGameTxt.text = Mathf.CeilToInt(_timerInGame).ToString();
+            _timerInGameTxt.text = Mathf.CeilToInt(_timerInGame).ToString();
 
             yield return null;
         }
@@ -192,6 +213,16 @@ public class GameController : MonoBehaviour
             // swap
             (listDoble[i], listDoble[j]) = (listDoble[j], listDoble[i]);
         }
+    }
+
+    public void PlaySound(int value)
+    {
+        if (value == 1)
+            audioSource.clip = successAudio;
+        else if (value == 2)
+            audioSource.clip = incorrectAudio;
+
+        audioSource.Play();
     }
 
     public int TotalGOChange
