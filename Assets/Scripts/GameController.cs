@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     [Header("UI")]
     public GameObject beforeStartCanvas;
     public TMP_Text timerBeforeStartTxt;
-    [SerializeField] Animator _lineImageAnim; 
+    [SerializeField] Animator _lineImageAnim;
 
     public GameObject inGameCanvas;
 
@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour
 
     public GameObject gameOverCanvas;
     public TMP_Text totalObjectToChange;
-
 
     [Header("Sounds")]
     public AudioClip successAudio;
@@ -87,7 +86,10 @@ public class GameController : MonoBehaviour
         }
 
         if (_timerInGame < 3)
+        {
             _timerInGameAnim.enabled = true;
+            _timerInGameTxt.color = Color.red;
+        }
     }
 
     IEnumerator StartGame()
@@ -118,6 +120,7 @@ public class GameController : MonoBehaviour
         _timerInGameAnim.enabled = false;
         _timerInGame = 10;
         _timerInGameTxt.text = "10";
+        _timerInGameTxt.color = Color.black;
 
         while (_timerInGame > 0)
         {
@@ -197,9 +200,12 @@ public class GameController : MonoBehaviour
         _gameReady = true;
     }
 
-    public void ReloadScene()
+    public void ReloadScene(int indexScene)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (indexScene == 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        else
+            SceneManager.LoadScene(indexScene);
     }
 
     private void Shuffle()

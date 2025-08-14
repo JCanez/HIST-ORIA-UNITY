@@ -3,16 +3,14 @@ using UnityEngine.Rendering;
 
 public class Test : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-
+        Debug.Log("Tocado");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-
+        Debug.Log("Trigger Activado");
     }
 
     public void Printing()

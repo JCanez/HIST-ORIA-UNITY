@@ -761,7 +761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 850911223}
-  - component: {fileID: 850911224}
+  - component: {fileID: 850911226}
   - component: {fileID: 850911225}
   m_Layer: 0
   m_Name: Menu Controller
@@ -785,19 +785,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1370020032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &850911224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850911221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982ca7dc3672adc44bc9628e6e0c492f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 1332844471}
 --- !u!114 &850911225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,6 +799,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filename: Screenshots/mi_captura.png
   superSize: 1
+--- !u!114 &850911226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850911221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2c11c278b7c9b4eae3a3d1dbb9d180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floor: {fileID: 0}
 --- !u!1001 &927116999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1683,7 +1683,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1594199385}
   - component: {fileID: 1594199384}
-  - component: {fileID: 1594199386}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1771,18 +1770,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4533388}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1594199386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594199383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1675814007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 421450, guid: 56f5e89a7be1230409520ccffa3dbbf8, type: 3}
