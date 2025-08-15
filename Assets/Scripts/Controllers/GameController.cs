@@ -18,6 +18,11 @@ public class GameController : MonoBehaviour
 
     List<GameObject> listDoble = new List<GameObject>();
 
+    [Header("Swat Van")]
+    public GameObject respawnPoint;
+    public GameObject destructionPoint;
+    public GameObject SwatVanGO;
+
     [Header("UI")]
     public GameObject beforeStartCanvas;
     public TMP_Text timerBeforeStartTxt;
@@ -115,7 +120,7 @@ public class GameController : MonoBehaviour
         StartCoroutine(RestartTimer());
     }
 
-    IEnumerator RestartTimer()
+    public IEnumerator RestartTimer()
     {
         _timerInGameAnim.enabled = false;
         _timerInGame = 10;
@@ -126,15 +131,12 @@ public class GameController : MonoBehaviour
         {
             _timerInGame -= Time.deltaTime;
             _timerInGameTxt.text = Mathf.CeilToInt(_timerInGame).ToString();
-
             yield return null;
         }
 
         if (_firstime)
         {
-            ChangeElements();
-            StartCoroutine(RestartTimer());
-            _firstime = false;
+            SwatVanRespawn();
         }
     }
 
@@ -231,6 +233,12 @@ public class GameController : MonoBehaviour
         audioSource.Play();
     }
 
+    public void SwatVanRespawn()
+    {
+        GameObject swatVanGOI = Instantiate(SwatVanGO, respawnPoint.transform.position, Quaternion.identity);
+        swatVanGOI.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+    }
+
     public int TotalGOChange
     {
         get { return elementsToChange; }
@@ -243,4 +251,9 @@ public class GameController : MonoBehaviour
         set { _gameReady = value; }
     }
 
+    public bool Firstime
+    {
+        get { return _firstime; }
+        set { _firstime = value; }
+    }
 }

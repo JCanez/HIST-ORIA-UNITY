@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - ObjectToChange
+  - ChangePoint
   layers:
   - Default
   - TransparentFX

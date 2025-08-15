@@ -10,7 +10,8 @@ public class Test : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger Activado");
+        Debug.Log(other.name);
+        Debug.Log(other.tag);
     }
 
     public void Printing()

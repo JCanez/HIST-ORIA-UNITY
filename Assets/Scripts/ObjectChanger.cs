@@ -45,14 +45,6 @@ public class ObjectChanger : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //    ChangeObject();
-        //else if (Input.GetKeyDown(KeyCode.P))
-        //    SceneManager.LoadScene(2);
-    }
-
     private void Start()
     {
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
