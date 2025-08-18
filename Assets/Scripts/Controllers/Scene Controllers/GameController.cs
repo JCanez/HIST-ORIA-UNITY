@@ -36,20 +36,23 @@ public class GameController : MonoBehaviour
     Animator _timerInGameAnim;
 
     public TMP_Text endGameTxt;
-    bool _firstime = true;
+    bool _firsTime = true;
 
     public GameObject gameOverCanvas;
     public TMP_Text totalObjectToChange;
 
-    [Header("Sounds")]
-    public AudioClip successAudio;
-    public AudioClip incorrectAudio;
-    AudioSource audioSource;
+    private AudioController audioController;
+
+    //[Header("Sounds")]
+    //public AudioClip successAudio;
+    //public AudioClip incorrectAudio;
+    //AudioSource audioSource;
 
     private void Awake()
     {
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
-        audioSource = GetComponent<AudioSource>();
+
+        audioController = GetComponent<AudioController>();
 
         _timerInGameTxt = timerInGameGO.GetComponent<TMP_Text>();
         _timerInGameAnim = timerInGameGO.GetComponent<Animator>();
@@ -81,7 +84,7 @@ public class GameController : MonoBehaviour
             GameReady = false;
             endGameTxt.text = "WINNER";
         }
-        else if (mistakes == 0 || _timerInGame < 0 && _firstime == false)
+        else if (mistakes == 0 || (_timerInGame < 0 && _firsTime == false))
         {
             inGameCanvas.SetActive(false);
             gameOverCanvas.SetActive(true);
@@ -129,12 +132,12 @@ public class GameController : MonoBehaviour
 
         while (_timerInGame > 0)
         {
-            _timerInGame -= Time.deltaTime;
-            _timerInGameTxt.text = Mathf.CeilToInt(_timerInGame).ToString();
-            yield return null;
+            yield return new WaitForSeconds(1f);
+            _timerInGame--;
+            _timerInGameTxt.text = _timerInGame.ToString();
         }
 
-        if (_firstime)
+        if (_firsTime)
         {
             SwatVanRespawn();
         }
@@ -226,11 +229,9 @@ public class GameController : MonoBehaviour
     public void PlaySound(int value)
     {
         if (value == 1)
-            audioSource.clip = successAudio;
+            audioController.PlaySuccess();
         else if (value == 2)
-            audioSource.clip = incorrectAudio;
-
-        audioSource.Play();
+            audioController.PlayFail();
     }
 
     public void SwatVanRespawn()
@@ -253,7 +254,7 @@ public class GameController : MonoBehaviour
 
     public bool Firstime
     {
-        get { return _firstime; }
-        set { _firstime = value; }
+        get { return _firsTime; }
+        set { _firsTime = value; }
     }
 }

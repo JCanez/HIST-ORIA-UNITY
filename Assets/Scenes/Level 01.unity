@@ -3366,10 +3366,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1667099889}
   - component: {fileID: 1667099888}
+  - component: {fileID: 1667099892}
   - component: {fileID: 1667099891}
   - component: {fileID: 1667099890}
   m_Layer: 0
-  m_Name: Game Controller
+  m_Name: Game Manager
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3401,8 +3402,6 @@ MonoBehaviour:
   endGameTxt: {fileID: 65098248}
   gameOverCanvas: {fileID: 341780054}
   totalObjectToChange: {fileID: 1926918322}
-  successAudio: {fileID: 8300000, guid: 3d5c1ccfafc27db489991c6c2df11259, type: 3}
-  incorrectAudio: {fileID: 8300000, guid: bb050775b4fc2f746930df26c4c60038, type: 3}
 --- !u!4 &1667099889
 Transform:
   m_ObjectHideFlags: 0
@@ -3529,6 +3528,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filename: Screenshots/123.png
   superSize: 1
+--- !u!114 &1667099892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667099887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bffed0bd1306e478cbcb9872c81ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSource: {fileID: 1667099890}
+  musicSource: {fileID: 0}
+  successClip: {fileID: 8300000, guid: 3d5c1ccfafc27db489991c6c2df11259, type: 3}
+  failClip: {fileID: 8300000, guid: bb050775b4fc2f746930df26c4c60038, type: 3}
 --- !u!1 &1701315635
 GameObject:
   m_ObjectHideFlags: 0
