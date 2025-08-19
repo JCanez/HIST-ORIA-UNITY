@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 public class ObjectChanger : MonoBehaviour
 {
     GameController _gameController;
+    AudioController _audioController;
 
     GameObject newGO;
     MeshFilter meshFilterGO;
     MeshCollider meshColliderGO;
 
     public GameObject[] objectsToChange;
-    bool _change;
+    public bool _change;
     bool _touched;
 
     int contador;
@@ -24,6 +25,14 @@ public class ObjectChanger : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
     }
 
+    private void Start()
+    {
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        //Creamos los primeros modelos en escena
+        CreateGameObject();
+    }
+
     private void OnMouseDown()
     {
         if (_gameController.GameReady == true && _touched == false)
@@ -31,26 +40,18 @@ public class ObjectChanger : MonoBehaviour
             if (_change == true)
             {
                 Debug.Log("El modelo fue cambiado");
-                _gameController.success++;
-                _gameController.PlaySound(1);
+                _gameController.Success++;
+                _audioController.PlaySuccess();
             }
             else
             {
                 Debug.Log("El modelo no fue cambiado");
-                _gameController.mistakes--;
-                _gameController.PlaySound(2);
+                _gameController.Mistakes--;
+                _audioController.PlayFail();
             }
 
             _touched = true;
         }
-    }
-
-    private void Start()
-    {
-        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
-        //Creamos los primeros modelos en escena
-        CreateGameObject();
     }
 
     private void CreateGameObject()

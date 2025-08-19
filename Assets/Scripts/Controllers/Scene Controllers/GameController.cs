@@ -9,148 +9,148 @@ using System.Collections;
 public class GameController : MonoBehaviour
 {
     public int elementsToChange;
-    public int success;
-    public int mistakes;
+    int _success;
+    int _mistakes;
 
     bool _gameReady;
+    float _timerInGame;
+    bool _firsTime = true;
 
-    GameObject[] listGO;
-
-    List<GameObject> listDoble = new List<GameObject>();
+    GameObject[] _listGO;
+    List<GameObject> _listDoble = new List<GameObject>();
 
     [Header("Swat Van")]
     public GameObject respawnPoint;
     public GameObject destructionPoint;
     public GameObject SwatVanGO;
 
-    [Header("UI")]
-    public GameObject beforeStartCanvas;
-    public TMP_Text timerBeforeStartTxt;
-    [SerializeField] Animator _lineImageAnim;
-
-    public GameObject inGameCanvas;
-
-    public GameObject timerInGameGO;
-    TMP_Text _timerInGameTxt;
-    float _timerInGame;
-    Animator _timerInGameAnim;
-
-    public TMP_Text endGameTxt;
-    bool _firsTime = true;
-
-    public GameObject gameOverCanvas;
-    public TMP_Text totalObjectToChange;
-
-    private AudioController audioController;
-
-    //[Header("Sounds")]
-    //public AudioClip successAudio;
-    //public AudioClip incorrectAudio;
-    //AudioSource audioSource;
+    AudioController _audioController;
+    UIController _UIController;
 
     private void Awake()
     {
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
 
-        audioController = GetComponent<AudioController>();
-
-        _timerInGameTxt = timerInGameGO.GetComponent<TMP_Text>();
-        _timerInGameAnim = timerInGameGO.GetComponent<Animator>();
+        _audioController = GetComponent<AudioController>();
+        _UIController = GetComponent<UIController>();
 
         _gameReady = false;
-        success = 0;
         _timerInGame = 10;
+
+        _success = 0;
+        _mistakes = 3;
     }
 
     private void Start()
     {
-        totalObjectToChange = totalObjectToChange.GetComponent<TextMeshProUGUI>();
-
-        listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
-        totalObjectToChange.text = elementsToChange.ToString();
-
+        _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
 
-        StartCoroutine(StartGame());
+        StartCoroutine(GamePhases());
     }
 
     private void Update()
     {
-        if (success == elementsToChange)
+        if (_success == elementsToChange)
         {
-            inGameCanvas.SetActive(false);
-            gameOverCanvas.SetActive(true);
-
             GameReady = false;
-            endGameTxt.text = "WINNER";
+
+            _UIController.SetPhase(UIController.GamePhase.End);
+            _UIController.EndGameTextChanger("WINNER");
         }
-        else if (mistakes == 0 || (_timerInGame < 0 && _firsTime == false))
+        else if (_mistakes == 0 || (_timerInGame < 0 && _firsTime == false))
         {
-            inGameCanvas.SetActive(false);
-            gameOverCanvas.SetActive(true);
-
             GameReady = false;
-            endGameTxt.text = "GAME OVER";
+
+            _UIController.SetPhase(UIController.GamePhase.End);
+            _UIController.EndGameTextChanger("LOSER");
         }
 
         if (_timerInGame < 3)
         {
-            _timerInGameAnim.enabled = true;
-            _timerInGameTxt.color = Color.red;
+            _UIController.TimerInGame(true, Color.red);
         }
     }
 
-    IEnumerator StartGame()
+    IEnumerator GamePhases()
+    {
+        yield return StartCoroutine(BeforeGamePhases());
+
+        yield return StartCoroutine(InGamePhase());
+
+        yield return StartCoroutine(EndGamePhase());
+    }
+
+    IEnumerator BeforeGamePhases()
     {
         yield return new WaitForSeconds(1.5f);
 
-        _lineImageAnim.enabled = true;
+        _UIController.UpdateBeforeGameTimer(3);
 
-        timerBeforeStartTxt.text = "3";
-        float duration = 3.0f;
+        _UIController.StartAnimBackground();
 
-        while (duration > 0)
+        float timeToWaiting = 3f;
+
+        while (timeToWaiting > 0)
         {
-            duration -= Time.deltaTime;
-            timerBeforeStartTxt.text = Mathf.CeilToInt(duration).ToString();
-
+            yield return new WaitForSeconds(1f);
+            timeToWaiting--;
+            _UIController.UpdateBeforeGameTimer(timeToWaiting);
             yield return null;
         }
-
-        beforeStartCanvas.SetActive(false);
-        inGameCanvas.SetActive(true);
-
-        StartCoroutine(RestartTimer());
     }
 
-    public IEnumerator RestartTimer()
+    IEnumerator InGamePhase()
     {
-        _timerInGameAnim.enabled = false;
-        _timerInGame = 10;
-        _timerInGameTxt.text = "10";
-        _timerInGameTxt.color = Color.black;
+        Debug.Log("Iniciamos segunda fase");
+        _UIController.SetPhase(UIController.GamePhase.InGame); // Activamos el canvas de In Game
 
         while (_timerInGame > 0)
         {
             yield return new WaitForSeconds(1f);
             _timerInGame--;
-            _timerInGameTxt.text = _timerInGame.ToString();
+            _UIController.UpdateInGameTimer(_timerInGame);
+            yield return null;
         }
 
-        if (_firsTime)
+        // Activar transicion - Swat Van
+        SwatVanRespawn();
+
+        // Resetear el timer
+
+
+    }
+
+    IEnumerator EndGamePhase()
+    {
+        yield return null;
+    }
+
+    public IEnumerator RestartTimer()
+    {
+        //_UIController.RestarTimer(false, 10, Color.black);
+
+        while (_timerInGame > 0)
         {
-            SwatVanRespawn();
+            yield return new WaitForSeconds(1f);
+            _timerInGame--;
+            //_timerInGameTxt.text = _timerInGame.ToString();
         }
+
+        //if (_firsTime)
+        //{
+        //    SwatVanRespawn();
+        //}
     }
 
     private void CreateNewList()
     {
         ResetStateGO();
-        listDoble.Clear();
+        _listDoble.Clear();
 
-        for (int x = 0; x < listGO.Length; x++)
+        for (int x = 0; x < _listGO.Length; x++)
         {
-            listDoble.Add(listGO[x]);
+            _listDoble.Add(_listGO[x]);
         }
 
         Shuffle();
@@ -158,9 +158,9 @@ public class GameController : MonoBehaviour
 
     private void ResetStateGO()
     {
-        for (int x = 0; x < listGO.Length; x++)
+        for (int x = 0; x < _listGO.Length; x++)
         {
-            ObjectChanger objectChangerGO = listGO[x].GetComponent<ObjectChanger>();
+            ObjectChanger objectChangerGO = _listGO[x].GetComponent<ObjectChanger>();
 
             objectChangerGO.Change = false;
         }
@@ -168,9 +168,9 @@ public class GameController : MonoBehaviour
 
     private void PrintList()
     {
-        for (int x = 0; x < listDoble.Count; x++)
+        for (int x = 0; x < _listDoble.Count; x++)
         {
-            Debug.Log("Elemento " + (x + 1) + ": " + listDoble[x]);
+            Debug.Log("Elemento " + (x + 1) + ": " + _listDoble[x]);
         }
 
         Debug.Log("-----------------------------------------------------");
@@ -178,8 +178,8 @@ public class GameController : MonoBehaviour
 
     private void DeleteElement(int element)
     {
-        //Debug.Log("ELEMENTO ELIMINADO: " + listDoble[element]);
-        listDoble.Remove(listDoble[element]);
+        //Debug.Log("ELEMENTO ELIMINADO: " + _listDoble[element]);
+        _listDoble.Remove(_listDoble[element]);
 
         //PrintList();
     }
@@ -191,11 +191,13 @@ public class GameController : MonoBehaviour
 
         for (int x = 0; x < elementsToChange; x++)
         {
-            int randonNum = Random.Range(0, listDoble.Count);
-            ObjectChanger objectChangerGO = listDoble[randonNum].GetComponent<ObjectChanger>();
+            int randonNum = Random.Range(0, _listDoble.Count);
+            ObjectChanger objectChangerGO = _listDoble[randonNum].GetComponent<ObjectChanger>();
 
             objectChangerGO.ChangeObject();
             objectChangerGO.Change = true;
+
+            Debug.Log(objectChangerGO.name);
 
             DeleteElement(randonNum);
 
@@ -217,29 +219,30 @@ public class GameController : MonoBehaviour
     {
         Random.InitState(System.DateTime.Now.GetHashCode());
 
-        for (int i = listDoble.Count - 1; i > 0; i--)
+        for (int i = _listDoble.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
 
             // swap
-            (listDoble[i], listDoble[j]) = (listDoble[j], listDoble[i]);
+            (_listDoble[i], _listDoble[j]) = (_listDoble[j], _listDoble[i]);
         }
     }
 
     public void PlaySound(int value)
     {
-        if (value == 1)
-            audioController.PlaySuccess();
-        else if (value == 2)
-            audioController.PlayFail();
+        //if (value == 1)
+        //    audioController.PlaySuccess();
+        //else if (value == 2)
+        //    audioController.PlayFail();
     }
 
-    public void SwatVanRespawn()
+    private void SwatVanRespawn()
     {
         GameObject swatVanGOI = Instantiate(SwatVanGO, respawnPoint.transform.position, Quaternion.identity);
         swatVanGOI.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
+    //ATRIBUTOS
     public int TotalGOChange
     {
         get { return elementsToChange; }
@@ -256,5 +259,17 @@ public class GameController : MonoBehaviour
     {
         get { return _firsTime; }
         set { _firsTime = value; }
+    }
+
+    public int Mistakes
+    {
+        get { return _mistakes; }
+        set { _mistakes = value; }
+    }
+
+    public int Success
+    {
+        get { return _success; }
+        set { _success = value; }
     }
 }

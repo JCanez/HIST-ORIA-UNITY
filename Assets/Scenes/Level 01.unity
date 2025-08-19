@@ -152,6 +152,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 188464, guid: e9396206a9de2e248854a26c1bc1c2e3, type: 3}
   - {fileID: 109176, guid: 1ad0616779bf4d64f9da99cc0ec8df53, type: 3}
+  _change: 0
 --- !u!4 &11945758
 Transform:
   m_ObjectHideFlags: 0
@@ -499,6 +500,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 157192, guid: e924b50d436c0c543a11dbf1c7911559, type: 3}
   - {fileID: 164654, guid: 0329988e271a12a45bdfcba98486ecc4, type: 3}
+  _change: 0
 --- !u!4 &181201640
 Transform:
   m_ObjectHideFlags: 0
@@ -591,6 +593,7 @@ MonoBehaviour:
   - {fileID: 193398, guid: c1259162856ad5d49a09125a65561f07, type: 3}
   - {fileID: 198710, guid: 39bc4c11aa15b70429dc869ba6f127d0, type: 3}
   - {fileID: 133090, guid: fc9414b905e546c4ea8fea9a343a2cde, type: 3}
+  _change: 0
 --- !u!54 &202070038
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -651,6 +654,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 117480, guid: f5ebeaeea8049c844bec8382b58f6c97, type: 3}
   - {fileID: 185134, guid: 2be03b7ea35b0a145917e513d6e93e3f, type: 3}
+  _change: 0
 --- !u!4 &227423115
 Transform:
   m_ObjectHideFlags: 0
@@ -892,7 +896,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1019,6 +1023,7 @@ MonoBehaviour:
   - {fileID: 120456, guid: a3ab99639b8b59041bec5a4441233fef, type: 3}
   - {fileID: 132200, guid: dd270ba7ccf914c458d02ce1a114bfbc, type: 3}
   - {fileID: 161652, guid: 68b4cd11f69acca4e9a3c68b161c68b9, type: 3}
+  _change: 0
 --- !u!4 &292048896
 Transform:
   m_ObjectHideFlags: 0
@@ -1509,6 +1514,7 @@ MonoBehaviour:
   - {fileID: 141380, guid: 4d3ad1a9371a8584ba1d75f7b6a2c81d, type: 3}
   - {fileID: 168504, guid: 130b7421c2e08474e89a6357a69bbcb8, type: 3}
   - {fileID: 174344, guid: 83eb6da912953354fb9d71e922ca8db8, type: 3}
+  _change: 0
 --- !u!4 &487002845
 Transform:
   m_ObjectHideFlags: 0
@@ -1696,6 +1702,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 164654, guid: 0329988e271a12a45bdfcba98486ecc4, type: 3}
   - {fileID: 157192, guid: e924b50d436c0c543a11dbf1c7911559, type: 3}
+  _change: 0
 --- !u!54 &502450736
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1758,6 +1765,7 @@ MonoBehaviour:
   - {fileID: 199910, guid: 8be86b86610077a47be3a9a99fc8f89e, type: 3}
   - {fileID: 160320, guid: 8a11974b142a1e5449a7fd3fe3584857, type: 3}
   - {fileID: 146790, guid: f7397c12ba664d24989c07eba4e79ecb, type: 3}
+  _change: 0
 --- !u!4 &590243220
 Transform:
   m_ObjectHideFlags: 0
@@ -1833,6 +1841,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 120010, guid: ed14c94b476509240be0121f8ea91a76, type: 3}
   - {fileID: 160722, guid: 779cfe5c6f421df498e6d1bad7df7396, type: 3}
+  _change: 0
 --- !u!4 &650745884
 Transform:
   m_ObjectHideFlags: 0
@@ -1908,6 +1917,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 172114, guid: ff5ffb80c37a89741a35082ed2e2fd64, type: 3}
   - {fileID: 184040, guid: 5e41505804200314f8239458ca194166, type: 3}
+  _change: 0
 --- !u!4 &665976463
 Transform:
   m_ObjectHideFlags: 0
@@ -2225,6 +2235,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 194464, guid: ab6467ec841edde4cb6b69309e291138, type: 3}
   - {fileID: 118638, guid: c0b65cd1348aa19459f671bc2f63f16a, type: 3}
+  _change: 0
 --- !u!4 &822850990
 Transform:
   m_ObjectHideFlags: 0
@@ -2300,6 +2311,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 120010, guid: ed14c94b476509240be0121f8ea91a76, type: 3}
   - {fileID: 160722, guid: 779cfe5c6f421df498e6d1bad7df7396, type: 3}
+  _change: 0
 --- !u!4 &863312710
 Transform:
   m_ObjectHideFlags: 0
@@ -2615,6 +2627,7 @@ MonoBehaviour:
   - {fileID: 152796, guid: 190662527a2846341945a43e2664a726, type: 3}
   - {fileID: 122856, guid: 196dc4952d0625e4584c17d7e70f9fb7, type: 3}
   - {fileID: 102872, guid: 484afefe62652474a807d0515debf7b9, type: 3}
+  _change: 0
 --- !u!4 &892495227
 Transform:
   m_ObjectHideFlags: 0
@@ -2927,6 +2940,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 197256, guid: 7cbb9ead96f471c4cb51d84f92bb1ab1, type: 3}
   - {fileID: 190812, guid: 33b7b512b06f0d747be082f99d6312a1, type: 3}
+  _change: 0
 --- !u!4 &1274778765
 Transform:
   m_ObjectHideFlags: 0
@@ -3329,6 +3343,7 @@ MonoBehaviour:
   - {fileID: 183404, guid: ba4bfa53a39eb7c40bf5c0b3650a1f1b, type: 3}
   - {fileID: 108272, guid: d31462ec62cb4614298eeaba34d1e270, type: 3}
   - {fileID: 192112, guid: cf996ba73645e1b4db8457df2f0b5d04, type: 3}
+  _change: 0
 --- !u!54 &1595814865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3366,8 +3381,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1667099889}
   - component: {fileID: 1667099888}
+  - component: {fileID: 1667099893}
   - component: {fileID: 1667099892}
-  - component: {fileID: 1667099891}
   - component: {fileID: 1667099890}
   m_Layer: 0
   m_Name: Game Manager
@@ -3389,19 +3404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elementsToChange: 5
-  success: 0
-  mistakes: 3
   respawnPoint: {fileID: 1712898185}
-  destructionPoint: {fileID: 0}
+  destructionPoint: {fileID: 787252017}
   SwatVanGO: {fileID: 1457499134734823992, guid: 265130792648b144d84ff8101e06a36b, type: 3}
-  beforeStartCanvas: {fileID: 879849159}
-  timerBeforeStartTxt: {fileID: 296714281}
-  _lineImageAnim: {fileID: 1546832583}
-  inGameCanvas: {fileID: 996268345}
-  timerInGameGO: {fileID: 283793679}
-  endGameTxt: {fileID: 65098248}
-  gameOverCanvas: {fileID: 341780054}
-  totalObjectToChange: {fileID: 1926918322}
 --- !u!4 &1667099889
 Transform:
   m_ObjectHideFlags: 0
@@ -3514,20 +3519,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1667099891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667099887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777efd4bf57ddde44b1f2b6235056ce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filename: Screenshots/123.png
-  superSize: 1
 --- !u!114 &1667099892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3544,6 +3535,26 @@ MonoBehaviour:
   musicSource: {fileID: 0}
   successClip: {fileID: 8300000, guid: 3d5c1ccfafc27db489991c6c2df11259, type: 3}
   failClip: {fileID: 8300000, guid: bb050775b4fc2f746930df26c4c60038, type: 3}
+--- !u!114 &1667099893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667099887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dd66a968eb56e4380116388f5d488b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beforeGameCanvas: {fileID: 879849159}
+  timerBeforeStartTxt: {fileID: 296714281}
+  _lineImageAnim: {fileID: 1546832583}
+  inGameCanvas: {fileID: 996268345}
+  totalObjectToChange: {fileID: 1926918322}
+  timerInGameGO: {fileID: 283793679}
+  endGameCanvas: {fileID: 341780054}
+  endGameTxt: {fileID: 65098248}
 --- !u!1 &1701315635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3588,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 150096, guid: e2f3d2fd53001e647bf9d788ec6d25fb, type: 3}
   - {fileID: 190380, guid: a4a654ab168fbb543bd6ca2c6b966a38, type: 3}
+  _change: 0
 --- !u!4 &1701315637
 Transform:
   m_ObjectHideFlags: 0
@@ -3685,6 +3697,7 @@ MonoBehaviour:
   - {fileID: 136998, guid: 593f0cf20ebe5ec4db08b51779053d3f, type: 3}
   - {fileID: 140178, guid: 705142479b09f0043b9b4ff84691b2b0, type: 3}
   - {fileID: 117272, guid: 05bb5227e8bf9f145920345bbd687941, type: 3}
+  _change: 0
 --- !u!4 &1744596207
 Transform:
   m_ObjectHideFlags: 0
@@ -3776,6 +3789,7 @@ MonoBehaviour:
   - {fileID: 119704, guid: 9d84a7d988251ec4fa19223b92083a24, type: 3}
   - {fileID: 166502, guid: 85cbc8147508f2544aefffff252e6d9d, type: 3}
   - {fileID: 137078, guid: a3516e53983593c4cb4a50626dac4968, type: 3}
+  _change: 0
 --- !u!54 &1745570597
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4263,6 +4277,7 @@ MonoBehaviour:
   - {fileID: 177854, guid: 71ce5de9ed9408949807b42beb7c70a9, type: 3}
   - {fileID: 138262, guid: 8cf39fddff0960249834e0ab7cf892aa, type: 3}
   - {fileID: 112836, guid: 7d151f6504734624fb6746746ff6e9f8, type: 3}
+  _change: 0
 --- !u!4 &2085856758
 Transform:
   m_ObjectHideFlags: 0
@@ -4338,6 +4353,7 @@ MonoBehaviour:
   objectsToChange:
   - {fileID: 148948, guid: 930f11eff64713b44bcddb1771d93bda, type: 3}
   - {fileID: 191992, guid: 087d79cceb11dfe4fa37c516de002f03, type: 3}
+  _change: 0
 --- !u!4 &2135772318
 Transform:
   m_ObjectHideFlags: 0
@@ -4469,10 +4485,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 1492572052}
   - {fileID: 490590602}
+  - {fileID: 1667099889}
   - {fileID: 8347617628603006555}
   - {fileID: 405138850}
   - {fileID: 1297165046}
-  - {fileID: 1667099889}
   - {fileID: 780888548}
   - {fileID: 1712898186}
   - {fileID: 787252019}
