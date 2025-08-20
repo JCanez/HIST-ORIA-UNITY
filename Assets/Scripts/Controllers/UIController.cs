@@ -95,5 +95,9 @@ public class UIController : MonoBehaviour
         _timerInGameTxt.color = color;
     }
 
+    public void TimerGameObjectActive(bool state)
+    {
+        timerInGameGO.SetActive(state);
+    }
     // ATRIBUTOS
 }

@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
             _UIController.SetPhase(UIController.GamePhase.End);
             _UIController.EndGameTextChanger("WINNER");
         }
-        else if (_mistakes == 0 || (_timerInGame < 0 && _firsTime == false))
+        else if (_mistakes == 0 || (_timerInGame <= 0 && _firsTime == false))
         {
             GameReady = false;
 
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
             _UIController.EndGameTextChanger("LOSER");
         }
 
-        if (_timerInGame < 3)
+        if (_timerInGame < 4)
         {
             _UIController.TimerInGame(true, Color.red);
         }
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
 
         yield return StartCoroutine(InGamePhase());
 
-        yield return StartCoroutine(EndGamePhase());
+        //yield return StartCoroutine(EndGamePhase());
     }
 
     IEnumerator BeforeGamePhases()
@@ -102,23 +102,36 @@ public class GameController : MonoBehaviour
 
     IEnumerator InGamePhase()
     {
-        Debug.Log("Iniciamos segunda fase");
         _UIController.SetPhase(UIController.GamePhase.InGame); // Activamos el canvas de In Game
 
         while (_timerInGame > 0)
         {
             yield return new WaitForSeconds(1f);
+
             _timerInGame--;
             _UIController.UpdateInGameTimer(_timerInGame);
+
             yield return null;
         }
 
+        _UIController.TimerGameObjectActive(false);
+
         // Activar transicion - Swat Van
         SwatVanRespawn();
+        yield return new WaitForSeconds(4.25f);
 
-        // Resetear el timer
+        RestartTimer();
+        _firsTime = false;
 
+        while (_timerInGame > 0)
+        {
+            yield return new WaitForSeconds(1f);
 
+            _timerInGame--;
+            _UIController.UpdateInGameTimer(_timerInGame);
+
+            yield return null;
+        }
     }
 
     IEnumerator EndGamePhase()
@@ -126,21 +139,11 @@ public class GameController : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator RestartTimer()
+    public void RestartTimer()
     {
-        //_UIController.RestarTimer(false, 10, Color.black);
-
-        while (_timerInGame > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            _timerInGame--;
-            //_timerInGameTxt.text = _timerInGame.ToString();
-        }
-
-        //if (_firsTime)
-        //{
-        //    SwatVanRespawn();
-        //}
+        _timerInGame = 10;
+        _UIController.TimerGameObjectActive(true);
+        _UIController.ResetTimer(false, 10, Color.black);
     }
 
     private void CreateNewList()

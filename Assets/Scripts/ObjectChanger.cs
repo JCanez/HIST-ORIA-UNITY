@@ -28,6 +28,7 @@ public class ObjectChanger : MonoBehaviour
     private void Start()
     {
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        _audioController = GameObject.FindGameObjectWithTag("GameController").GetComponent<AudioController>();
 
         //Creamos los primeros modelos en escena
         CreateGameObject();

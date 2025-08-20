@@ -2367,7 +2367,7 @@ GameObject:
   - component: {fileID: 876925765}
   - component: {fileID: 876925764}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Menu - Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3061,7 +3061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1476255485}
   - component: {fileID: 1476255484}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Change Point
   m_TagString: ChangePoint
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}

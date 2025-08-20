@@ -9,6 +9,8 @@ public class SwatVan : MonoBehaviour
 
     GameController _gameController;
 
+    float time = 0;
+
     private void Awake()
     {
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -20,21 +22,19 @@ public class SwatVan : MonoBehaviour
 
         frontWheel.transform.Rotate(-5, 0, 0);
         backWheel.transform.Rotate(-5, 0, 0);
+
+        time += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "ChangePoint")
         {
-            Debug.Log("Se cambiaron los modelos");
             _gameController.ChangeElements();
         }
 
         if (other.name == "Destroy Point")
         {
-            Debug.Log("Se va a destruir el objeto");
-            StartCoroutine(_gameController.RestartTimer());
-            _gameController.Firstime = false;
             Destroy(this.gameObject);
         }
     }
