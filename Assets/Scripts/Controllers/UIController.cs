@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,18 @@ public class UIController : MonoBehaviour
 
     [Header("In Game")]
     public GameObject inGameCanvas;
-    public TMP_Text totalObjectToChange; // Cantidad de objetos que han cambiado
+    //public TMP_Text totalObjectToChange; // Cantidad de objetos que han cambiado
     public GameObject timerInGameGO;
     float _timerInGame;
     TMP_Text _timerInGameTxt; // Tiempo para visualizar y/o encontrar los objetos que han cambiasdo
     Animator _timerInGameAnim;
+
+
+    [SerializeField] Sprite _successOnImg;
+    [SerializeField] Sprite _mistakeOnImg;
+
+    [SerializeField] Image[] _successImg;
+    [SerializeField] Image[] _mistakesImg;
 
     [Header("End Game")]
     public GameObject endGameCanvas;
@@ -32,8 +40,23 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        totalObjectToChange = totalObjectToChange.GetComponent<TextMeshProUGUI>();
+        //totalObjectToChange = totalObjectToChange.GetComponent<TextMeshProUGUI>();
         //totalObjectToChange.text = elementsToChange.ToString();
+    }
+
+    public void EnableCanvas()
+    {
+        endGameCanvas.SetActive(true);
+    }
+
+    public void SuccessOn(int successNum)
+    {
+        _successImg[successNum].sprite = _successOnImg;
+    }
+
+    public void MistakeOn(int mistakeNum)
+    {
+        _mistakesImg[mistakeNum].sprite = _mistakeOnImg;
     }
 
     public IEnumerator BeforeGamePhase()
@@ -59,9 +82,10 @@ public class UIController : MonoBehaviour
         timerBeforeStartTxt.text = Mathf.CeilToInt(time).ToString();
     }
 
-    public void UpdateInGameTimer(float time)
+    public void UpdateInGameTimer(float time, string timeFormat)
     {
-        _timerInGameTxt.text = Mathf.CeilToInt(time).ToString();
+        //_timerInGameTxt.text = Mathf.CeilToInt(time).ToString();
+        _timerInGameTxt.text = time.ToString(timeFormat);
     }
 
     public void StartAnimBackground()

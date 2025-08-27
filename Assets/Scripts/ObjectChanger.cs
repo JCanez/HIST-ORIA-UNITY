@@ -41,14 +41,12 @@ public class ObjectChanger : MonoBehaviour
             if (_change == true)
             {
                 Debug.Log("El modelo fue cambiado");
-                _gameController.Success++;
-                _audioController.PlaySuccess();
+                _gameController.SuccessObject();
             }
             else
             {
                 Debug.Log("El modelo no fue cambiado");
-                _gameController.Mistakes--;
-                _audioController.PlayFail();
+                _gameController.MistakeObject();
             }
 
             _touched = true;

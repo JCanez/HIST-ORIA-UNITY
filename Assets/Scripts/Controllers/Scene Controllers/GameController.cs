@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour
     bool _gameReady;
     float _timerInGame;
     bool _firsTime = true;
+    bool _gameover = false;
+
+    float _timekeeper;
 
     GameObject[] _listGO;
     List<GameObject> _listDoble = new List<GameObject>();
@@ -26,6 +29,7 @@ public class GameController : MonoBehaviour
 
     AudioController _audioController;
     UIController _UIController;
+    InfoGameManager _infoGameManager;
 
     private void Awake()
     {
@@ -33,12 +37,13 @@ public class GameController : MonoBehaviour
 
         _audioController = GetComponent<AudioController>();
         _UIController = GetComponent<UIController>();
+        _infoGameManager = GetComponent<InfoGameManager>();
 
         _gameReady = false;
-        _timerInGame = 10;
+        _timerInGame = 15;
 
         _success = 0;
-        _mistakes = 3;
+        _mistakes = 0;
     }
 
     private void Start()
@@ -53,23 +58,34 @@ public class GameController : MonoBehaviour
     {
         if (_success == elementsToChange)
         {
-            GameReady = false;
+            _gameReady = false;
 
-            _UIController.SetPhase(UIController.GamePhase.End);
+            //_UIController.SetPhase(UIController.GamePhase.End);
+            _UIController.EnableCanvas();
             _UIController.EndGameTextChanger("WINNER");
+
+            _gameover = true;
+
+            _infoGameManager.GuardarTiempo(_timekeeper);
+
+    
         }
-        else if (_mistakes == 0 || (_timerInGame <= 0 && _firsTime == false))
+        else if (_mistakes == 3 || (_timerInGame <= 0 && _firsTime == false))
         {
-            GameReady = false;
+            _gameReady = false;
+            _gameover = true;
 
-            _UIController.SetPhase(UIController.GamePhase.End);
-            _UIController.EndGameTextChanger("LOSER");
+            //_UIController.SetPhase(UIController.GamePhase.End);
+            _UIController.EnableCanvas();
+            _UIController.EndGameTextChanger("YOU LOSE");
         }
 
-        if (_timerInGame < 4)
+        if (_timerInGame < 4 && _firsTime == false)
         {
             _UIController.TimerInGame(true, Color.red);
         }
+
+        _timekeeper += Time.deltaTime;
     }
 
     IEnumerator GamePhases()
@@ -109,7 +125,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             _timerInGame--;
-            _UIController.UpdateInGameTimer(_timerInGame);
+            _UIController.UpdateInGameTimer(_timerInGame, "0");
 
             yield return null;
         }
@@ -120,15 +136,17 @@ public class GameController : MonoBehaviour
         SwatVanRespawn();
         yield return new WaitForSeconds(4.25f);
 
-        RestartTimer();
+        RestartTimer(10);
         _firsTime = false;
 
-        while (_timerInGame > 0)
-        {
-            yield return new WaitForSeconds(1f);
+        _timekeeper = 0;
 
-            _timerInGame--;
-            _UIController.UpdateInGameTimer(_timerInGame);
+        while (_timerInGame > 0 && _gameover == false)
+        {
+            //yield return new WaitForSeconds(1f);
+
+            _timerInGame -= Time.deltaTime;
+            _UIController.UpdateInGameTimer(_timerInGame, "00.00");
 
             yield return null;
         }
@@ -139,11 +157,25 @@ public class GameController : MonoBehaviour
         yield return null;
     }
 
-    public void RestartTimer()
+    public void SuccessObject()
     {
-        _timerInGame = 10;
+        _success++;
+        _audioController.PlaySuccess();
+        _UIController.SuccessOn(_success - 1);
+    }
+
+    public void MistakeObject()
+    {
+        _mistakes++;
+        _audioController.PlayFail();
+        _UIController.MistakeOn(_mistakes - 1);
+    }
+
+    public void RestartTimer(int time)
+    {
+        _timerInGame = time;
         _UIController.TimerGameObjectActive(true);
-        _UIController.ResetTimer(false, 10, Color.black);
+        _UIController.ResetTimer(false, time, Color.black);
     }
 
     private void CreateNewList()
@@ -212,10 +244,12 @@ public class GameController : MonoBehaviour
 
     public void ReloadScene(int indexScene)
     {
-        if (indexScene == 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        else
+        // SceneManager.GetActiveScene().buildIndex
+
+        if (indexScene >= 0)
             SceneManager.LoadScene(indexScene);
+        else if (indexScene < 0)
+            Application.Quit();
     }
 
     private void Shuffle()
