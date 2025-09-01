@@ -1,26 +1,39 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class Test : MonoBehaviour
 {
-    public GameObject A;
-    public GameObject B;
-    public GameObject C;
+    public GameObject[] A;
+    private int pointer;
+    public GameObject camera;
+
+    private void Start()
+    {
+        pointer = 0;
+
+        camera.transform.position = A[pointer].transform.position;
+        camera.transform.rotation = A[pointer].transform.rotation;
+
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            SetPhase(GamePhase.Before);
+            pointer++;
+
+            if (pointer >= 10)
+                pointer = 0;
+
+            camera.transform.position = A[pointer].transform.position;
+            camera.transform.rotation = A[pointer].transform.rotation;
         }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            SetPhase(GamePhase.InGame);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            SetPhase(GamePhase.End);
-        }
+    }
+
+    public void SceneCaller()
+    {
+        SceneManager.LoadScene(0);
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -43,8 +56,8 @@ public class Test : MonoBehaviour
 
     public void SetPhase(GamePhase phase)
     {
-        A.SetActive(phase == GamePhase.Before);
-        B.SetActive(phase == GamePhase.InGame);
-        C.SetActive(phase == GamePhase.End);
+        //A.SetActive(phase == GamePhase.Before);
+        //B.SetActive(phase == GamePhase.InGame);
+        //C.SetActive(phase == GamePhase.End);
     }
 }
