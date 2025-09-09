@@ -22,6 +22,11 @@ public class GameController : MonoBehaviour
     GameObject[] _listGO;
     List<GameObject> _listDoble = new List<GameObject>();
 
+    [Header("Camera")]
+    [SerializeField]
+    private GameObject[] _positions;
+    private GameObject _mainCamera;
+
     [Header("Swat Van")]
     public GameObject respawnPoint;
     public GameObject destructionPoint;
@@ -33,6 +38,8 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+
+        Debug.Log("Nivel: " + PlayLevel.selectedLvl);
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
 
         _audioController = GetComponent<AudioController>();
@@ -48,6 +55,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        _mainCamera.transform.position = _positions[PlayLevel.selectedLvl].transform.position;
+
         _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
 
@@ -68,7 +78,7 @@ public class GameController : MonoBehaviour
 
             _infoGameManager.GuardarTiempo(_timekeeper);
 
-    
+
         }
         else if (_mistakes == 3 || (_timerInGame <= 0 && _firsTime == false))
         {
@@ -309,4 +319,9 @@ public class GameController : MonoBehaviour
         get { return _success; }
         set { _success = value; }
     }
+}
+
+public static class PlayLevel
+{
+    public static int selectedLvl;
 }

@@ -10,11 +10,10 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        pointer = 0;
+        pointer = PlayLevel.selectedLvl;
 
         camera.transform.position = A[pointer].transform.position;
         camera.transform.rotation = A[pointer].transform.rotation;
-
     }
 
     private void Update()
@@ -31,9 +30,9 @@ public class Test : MonoBehaviour
         }
     }
 
-    public void SceneCaller()
+    public void SceneCaller(int idScene)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(idScene);
     }
 
     //private void OnCollisionEnter(Collision collision)
