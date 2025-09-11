@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
         _infoGameManager = GetComponent<InfoGameManager>();
 
         _gameReady = false;
-        _timerInGame = 15;
+        _timerInGame = 3;
 
         _success = 0;
         _mistakes = 0;
@@ -143,8 +143,9 @@ public class GameController : MonoBehaviour
         _UIController.TimerGameObjectActive(false);
 
         // Activar transicion - Swat Van
-        SwatVanRespawn();
-        yield return new WaitForSeconds(4.25f);
+        //SwatVanRespawn();
+        //yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(1);
 
         RestartTimer(10);
         _firsTime = false;

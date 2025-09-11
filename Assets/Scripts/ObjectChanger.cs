@@ -36,6 +36,8 @@ public class ObjectChanger : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("Tocado");
+
         if (_gameController.GameReady == true && _touched == false)
         {
             if (_change == true)

@@ -118,10 +118,10 @@ public class MenuController : MonoBehaviour
         _lvlNumText.text = "Lvl " + (gameData.levels[_currentLvl].lvlNum + 1).ToString();
         _mainBackground.sprite = _backgrounds[_currentLvl];
 
-        //if (!gameData.levels[_currentLvl].unlocked)
-        //    _lockElements.SetActive(true);
-        //else
-        //    _lockElements.SetActive(false);
+        if (!gameData.levels[_currentLvl].unlocked)
+            _lockElements.SetActive(true);
+        else
+            _lockElements.SetActive(false);
     }
 
     public int CurrentLvl
