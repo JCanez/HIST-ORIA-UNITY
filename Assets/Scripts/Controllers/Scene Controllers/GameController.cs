@@ -5,9 +5,12 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using System.Collections;
+using UnityEditor.ShaderKeywordFilter;
 
 public class GameController : MonoBehaviour
 {
+    GameData _gameData;
+
     public int elementsToChange;
     int _success;
     int _mistakes;
@@ -38,8 +41,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        SaveSystem.PrintPath();
+        _gameData = SaveSystem.Load();
 
-        Debug.Log("Nivel: " + PlayLevel.selectedLvl);
         Random.InitState(System.DateTime.Now.Millisecond + System.DateTime.Now.Second);
 
         _audioController = GetComponent<AudioController>();
@@ -55,8 +59,12 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Nivel: " + PlayLevel.selectedLvl + " , Mejor tiempo: " + _gameData.levels[PlayLevel.selectedLvl].bestTime);
+
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
         _mainCamera.transform.position = _positions[PlayLevel.selectedLvl].transform.position;
+        _mainCamera.transform.rotation = _positions[PlayLevel.selectedLvl].transform.rotation;
 
         _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
@@ -78,9 +86,9 @@ public class GameController : MonoBehaviour
 
             _infoGameManager.GuardarTiempo(_timekeeper);
 
-
+            VerificarData();
         }
-        else if (_mistakes == 3 || (_timerInGame <= 0 && _firsTime == false))
+        else if (_mistakes == 2 || (_timerInGame <= 0 && _firsTime == false))
         {
             _gameReady = false;
             _gameover = true;
@@ -96,6 +104,11 @@ public class GameController : MonoBehaviour
         }
 
         _timekeeper += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SaveSystem.DeleteFile();
+        }
     }
 
     IEnumerator GamePhases()
@@ -145,6 +158,8 @@ public class GameController : MonoBehaviour
         // Activar transicion - Swat Van
         //SwatVanRespawn();
         //yield return new WaitForSeconds(4.25f);
+
+        ChangeElements();
         yield return new WaitForSeconds(1);
 
         RestartTimer(10);
@@ -288,6 +303,20 @@ public class GameController : MonoBehaviour
     {
         GameObject swatVanGOI = Instantiate(SwatVanGO, respawnPoint.transform.position, Quaternion.identity);
         swatVanGOI.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+    }
+
+    private void VerificarData()
+    {
+        if (_timekeeper < _gameData.levels[PlayLevel.selectedLvl].bestTime)
+        {
+            _gameData.levels[PlayLevel.selectedLvl].bestTime = _timekeeper;
+            SaveSystem.Save(_gameData);
+            Debug.Log("Nuevo record");
+        }
+        else
+        {
+            Debug.Log("No se mejoro el record");
+        }
     }
 
     //ATRIBUTOS

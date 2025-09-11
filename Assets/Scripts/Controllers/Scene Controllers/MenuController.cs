@@ -104,7 +104,7 @@ public class MenuController : MonoBehaviour
             lvl.lvlName = lvlNames[x];
             lvl.lvlNum = x;
             lvl.unlocked = (x == 0);
-            lvl.bestTime = 0;
+            lvl.bestTime = 15f;
 
             gameData.levels.Add(lvl);
         }

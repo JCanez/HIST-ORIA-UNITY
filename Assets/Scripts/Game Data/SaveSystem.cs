@@ -12,6 +12,15 @@ public static class SaveSystem
         Debug.Log("Datos guardados en: " + filePath);
     }
 
+    public static void PrintPath()
+    {
+        Debug.Log("Datos guardados en: " + filePath);
+    }
+
+    public static void DeleteFile()
+    {
+        File.Delete(filePath);
+    }
     public static GameData Load()
     {
         if (File.Exists(filePath))
