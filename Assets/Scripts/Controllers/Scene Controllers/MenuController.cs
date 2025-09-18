@@ -29,8 +29,6 @@ public class MenuController : MonoBehaviour
     [SerializeField]
     private GameObject _lockElements;
 
-    //public GameObject floor;
-
     string[] lvlNames = { "Outside", "Entrance 01", "Office 01", "Entrance 02", "Desk", "Cashier", "Safe", "Office 02", "Jewellery", "Exit" };
 
     private void Start()
@@ -50,15 +48,6 @@ public class MenuController : MonoBehaviour
         }
 
         UpdateUI();
-    }
-
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.RightArrow))
-        //    floor.transform.Rotate(0,90,0);
-
-        //if (Input.GetKeyDown(KeyCode.LeftArrow))
-        //    floor.transform.Rotate(0, -90, 0);
     }
 
     public void MoveLevel(bool side)

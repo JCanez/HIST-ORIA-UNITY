@@ -42,11 +42,12 @@ public class GameController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
-    GameObject nextLvlButton;
+    GameObject _nextLvlButton;
 
     AudioController _audioController;
     UIController _UIController;
     InfoGameManager _infoGameManager;
+    SceneController _sceneController;
 
     private void Awake()
     {
@@ -58,6 +59,7 @@ public class GameController : MonoBehaviour
         _audioController = GetComponent<AudioController>();
         _UIController = GetComponent<UIController>();
         _infoGameManager = GetComponent<InfoGameManager>();
+        _sceneController = GetComponent<SceneController>();
 
         _gameReady = false;
         _timerInGame = 3;
@@ -71,7 +73,6 @@ public class GameController : MonoBehaviour
         Debug.Log("Nivel: " + PlayLevel.selectedLvl + " , Mejor tiempo: " + _gameData.levels[PlayLevel.selectedLvl].bestTime);
 
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
         _mainCamera.transform.position = _position[PlayLevel.selectedLvl].transform.position;
         _mainCamera.transform.rotation = _position[PlayLevel.selectedLvl].transform.rotation;
 
@@ -80,11 +81,16 @@ public class GameController : MonoBehaviour
         _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
 
+        if (_gameData.levels[PlayLevel.selectedLvl + 1].unlocked == true)
+            _nextLvlButton.SetActive(true);
+
+
         StartCoroutine(GamePhases());
     }
 
     private void Update()
     {
+        //SI ACIERTA A TODOS LOS OBJETOS
         if (_success == elementsToChange)
         {
             _gameReady = false;
@@ -98,7 +104,7 @@ public class GameController : MonoBehaviour
             _infoGameManager.GuardarTiempo(_timekeeper);
 
             VerificarData();
-        }
+        }//SI SUPERA LOS ERRORES MAXIMOS OP SE TERMINA EL TIEMPO
         else if (_mistakes == 2 || (_timerInGame <= 0 && _firsTime == false))
         {
             _gameReady = false;
@@ -109,6 +115,7 @@ public class GameController : MonoBehaviour
             _UIController.EndGameTextChanger("YOU LOSE");
         }
 
+        //CAMBIAMOS EL COLOR DEL TIMER
         if (_timerInGame < 4 && _firsTime == false)
         {
             _UIController.TimerInGame(true, Color.red);
@@ -120,6 +127,8 @@ public class GameController : MonoBehaviour
         {
             SaveSystem.DeleteFile();
         }
+
+        Debug.Log("Nivel: " + PlayLevel.selectedLvl);
     }
 
     IEnumerator GamePhases()
@@ -285,7 +294,7 @@ public class GameController : MonoBehaviour
 
         if (_newRecord == true)
         {
-            PlayLevel.selectedLvl = PlayLevel.selectedLvl + 1;
+            PlayLevel.selectedLvl += 1;
         }
 
         SceneManager.LoadScene(indexScene);
@@ -328,7 +337,7 @@ public class GameController : MonoBehaviour
             {
                 _gameData.levels[PlayLevel.selectedLvl + 1].unlocked = true;
                 _newRecord = true;
-                nextLvlButton.SetActive(true);
+                _nextLvlButton.SetActive(true);
             }
 
             SaveSystem.Save(_gameData);

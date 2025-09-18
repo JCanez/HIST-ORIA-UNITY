@@ -11937,7 +11937,7 @@ GameObject:
   - component: {fileID: 388759612}
   - component: {fileID: 388759611}
   - component: {fileID: 388759613}
-  - component: {fileID: 388759608}
+  - component: {fileID: 388759614}
   - component: {fileID: 388759610}
   m_Layer: 0
   m_Name: Game Controller
@@ -11961,19 +11961,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &388759608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388759605}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777efd4bf57ddde44b1f2b6235056ce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  superSize: 1
 --- !u!114 &388759609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12012,7 +11999,7 @@ MonoBehaviour:
   respawnPoint: {fileID: 0}
   destructionPoint: {fileID: 0}
   SwatVanGO: {fileID: 0}
-  nextLvlButton: {fileID: 1405355516}
+  _nextLvlButton: {fileID: 1405355516}
 --- !u!82 &388759610
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12167,6 +12154,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63b2d6d0101074f42bf858808973de27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &388759614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388759605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30157b8dbfffda64284852443da9ce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &388805740
@@ -31705,12 +31704,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 388759609}
+      objectReference: {fileID: 388759614}
     - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
+      value: NextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
