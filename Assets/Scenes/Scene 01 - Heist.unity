@@ -348,7 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 14937641}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3177,12 +3177,12 @@ GameObject:
   m_Component:
   - component: {fileID: 102383442}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &102383442
 Transform:
   m_ObjectHideFlags: 0
@@ -10690,7 +10690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354822624}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11987,7 +11987,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elementsToChange: 1
-  _positions:
+  _obtElements:
+  - {fileID: 102383441}
+  - {fileID: 354822623}
+  - {fileID: 14937640}
+  - {fileID: 1387264088}
+  - {fileID: 859657192}
+  - {fileID: 820163747}
+  - {fileID: 1059877964}
+  - {fileID: 853381121}
+  - {fileID: 452252374}
+  - {fileID: 1358530762}
+  _position:
   - {fileID: 2029034516}
   - {fileID: 2027277312}
   - {fileID: 254397343}
@@ -12001,6 +12012,7 @@ MonoBehaviour:
   respawnPoint: {fileID: 0}
   destructionPoint: {fileID: 0}
   SwatVanGO: {fileID: 0}
+  nextLvlButton: {fileID: 1405355516}
 --- !u!82 &388759610
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13980,7 +13992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 452252375}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25994,7 +26006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 820163748}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27209,7 +27221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 853381122}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27413,7 +27425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 859657193}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31700,6 +31712,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReloadScene
       objectReference: {fileID: 0}
+    - target: {fileID: 553575262275385678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 738557975506305824, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785427332073833536, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.9000244
+      objectReference: {fileID: 0}
     - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -31712,13 +31736,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2109003758167511350, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_Name
+      value: Next Lvl - Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109003758167511350, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2935762147080601822, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.600006
+      value: -8.600037
       objectReference: {fileID: 0}
     - target: {fileID: 2935762147080601822, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 4.465912
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901466738910692668, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6306292461353254336, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -31727,6 +31763,10 @@ PrefabInstance:
     - target: {fileID: 6306292461353254336, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReloadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387043060567743204, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_text
+      value: Repeat
       objectReference: {fileID: 0}
     - target: {fileID: 7449433760216603867, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31767,6 +31807,22 @@ PrefabInstance:
     - target: {fileID: 7449433760216603867, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7895246987939806172, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_text
+      value: Next Lvl
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109507324937358299, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173570678458837169, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.147995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632844903840174903, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_Name
+      value: Repeat - Button
       objectReference: {fileID: 0}
     - target: {fileID: 9148179626406317372, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_Name
@@ -32399,7 +32455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1059877965}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41501,7 +41557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1358530763}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42331,7 +42387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387264089}
   m_Layer: 0
-  m_Name: Objects to change
+  m_Name: Objects to change - Lvl 04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42811,6 +42867,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 483118, guid: 85cbc8147508f2544aefffff252e6d9d, type: 3}
   m_PrefabInstance: {fileID: 1402586482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1405355516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2109003758167511350, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+  m_PrefabInstance: {fileID: 1031455109}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1405491852
 PrefabInstance:

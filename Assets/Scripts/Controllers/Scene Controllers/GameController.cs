@@ -19,21 +19,30 @@ public class GameController : MonoBehaviour
     float _timerInGame;
     bool _firsTime = true;
     bool _gameover = false;
+    bool _newRecord = false;
 
     float _timekeeper;
 
     GameObject[] _listGO;
     List<GameObject> _listDoble = new List<GameObject>();
 
+    [Header("Objects to change")]
+    [SerializeField]
+    private GameObject[] _obtElements;
+
     [Header("Camera")]
     [SerializeField]
-    private GameObject[] _positions;
+    private GameObject[] _position;
     private GameObject _mainCamera;
 
     [Header("Swat Van")]
     public GameObject respawnPoint;
     public GameObject destructionPoint;
     public GameObject SwatVanGO;
+
+    [Header("UI")]
+    [SerializeField]
+    GameObject nextLvlButton;
 
     AudioController _audioController;
     UIController _UIController;
@@ -63,8 +72,10 @@ public class GameController : MonoBehaviour
 
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        _mainCamera.transform.position = _positions[PlayLevel.selectedLvl].transform.position;
-        _mainCamera.transform.rotation = _positions[PlayLevel.selectedLvl].transform.rotation;
+        _mainCamera.transform.position = _position[PlayLevel.selectedLvl].transform.position;
+        _mainCamera.transform.rotation = _position[PlayLevel.selectedLvl].transform.rotation;
+
+        _obtElements[PlayLevel.selectedLvl].SetActive(true);
 
         _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
@@ -272,10 +283,12 @@ public class GameController : MonoBehaviour
     {
         // SceneManager.GetActiveScene().buildIndex
 
-        if (indexScene >= 0)
-            SceneManager.LoadScene(indexScene);
-        else if (indexScene < 0)
-            Application.Quit();
+        if (_newRecord == true)
+        {
+            PlayLevel.selectedLvl = PlayLevel.selectedLvl + 1;
+        }
+
+        SceneManager.LoadScene(indexScene);
     }
 
     private void Shuffle()
@@ -310,6 +323,14 @@ public class GameController : MonoBehaviour
         if (_timekeeper < _gameData.levels[PlayLevel.selectedLvl].bestTime)
         {
             _gameData.levels[PlayLevel.selectedLvl].bestTime = _timekeeper;
+
+            if (_timekeeper <= 5 && _gameData.levels[PlayLevel.selectedLvl + 1].unlocked == false)
+            {
+                _gameData.levels[PlayLevel.selectedLvl + 1].unlocked = true;
+                _newRecord = true;
+                nextLvlButton.SetActive(true);
+            }
+
             SaveSystem.Save(_gameData);
             Debug.Log("Nuevo record");
         }
