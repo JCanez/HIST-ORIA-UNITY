@@ -1268,6 +1268,12 @@ MonoBehaviour:
   _LeftArrow: {fileID: 1723782049}
   _RightArrow: {fileID: 1701889567}
   _lockElements: {fileID: 1080605389}
+  _starImages:
+  - {fileID: 576536387}
+  - {fileID: 521193036}
+  - {fileID: 1448903507}
+  _starOffSprite: {fileID: 0}
+  _starOnSprite: {fileID: 0}
 --- !u!114 &850911227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3937,7 +3943,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 850911227}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: CallScene
+        m_MethodName: CallLevel
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

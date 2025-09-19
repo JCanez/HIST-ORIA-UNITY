@@ -13,12 +13,18 @@ public class SceneController : MonoBehaviour
         gameController = GetComponent<GameController>();
     }
 
+    public void CallLevel(int indexScene)
+    {
+        PlayLevel.selectedLvl = menuController.CurrentLvl;
+        SceneManager.LoadScene(indexScene);
+    }
+
     public void CallScene(int sceneId)
     {
         SceneManager.LoadScene(sceneId);
     }
 
-    public void CalleScene()
+    public void CallScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

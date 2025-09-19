@@ -29,6 +29,14 @@ public class MenuController : MonoBehaviour
     [SerializeField]
     private GameObject _lockElements;
 
+    [Header("Stars")]
+    [SerializeField]
+    private Image[] _starImages;
+    [SerializeField]
+    private Sprite _starOffSprite;
+    [SerializeField]
+    private Sprite _starOnSprite;
+
     string[] lvlNames = { "Outside", "Entrance 01", "Office 01", "Entrance 02", "Desk", "Cashier", "Safe", "Office 02", "Jewellery", "Exit" };
 
     private void Start()

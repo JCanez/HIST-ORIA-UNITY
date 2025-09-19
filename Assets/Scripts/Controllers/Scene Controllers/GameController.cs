@@ -58,6 +58,8 @@ public class GameController : MonoBehaviour
     InfoGameManager _infoGameManager;
     SceneController _sceneController;
 
+    private Coroutine _gamePhasesCoroutine;
+
     private void Awake()
     {
         SaveSystem.PrintPath();
@@ -88,10 +90,13 @@ public class GameController : MonoBehaviour
         _allObjectsToChange = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
 
-        if (_gameData.levels[PlayLevel.selectedLvl + 1].unlocked == true)
-            _nextLvlButton.SetActive(true);
+        if (PlayLevel.selectedLvl < _gameData.levels.Count - 1)
+        {
+            if (_gameData.levels[PlayLevel.selectedLvl + 1].unlocked == true)
+                _nextLvlButton.SetActive(true);
+        }
 
-        StartCoroutine(GamePhases());
+        _gamePhasesCoroutine = StartCoroutine(GamePhases());
     }
 
     private void Update()
@@ -164,8 +169,6 @@ public class GameController : MonoBehaviour
 
             yield return null;
         }
-
-        GameOver("YOU LOSE");
     }
 
     public void SuccessObject()
@@ -177,6 +180,7 @@ public class GameController : MonoBehaviour
         //SI ACIERTA A TODOS LOS OBJETOS
         if (_success == _elementsToChange)
         {
+            StopCoroutine(_gamePhasesCoroutine);
             GameOver("WINNER");
 
             _infoGameManager.GuardarTiempo(_timekeeper);
@@ -192,7 +196,10 @@ public class GameController : MonoBehaviour
         _UIController.MistakeOn(_mistakes - 1);
 
         if (_mistakes == _totalMistakes)
+        {
+            StopCoroutine(_gamePhasesCoroutine);
             GameOver("YOU LOSE");
+        }
     }
 
     public void RestartTimer(int time)
@@ -206,7 +213,7 @@ public class GameController : MonoBehaviour
     {
         _availableObjects = new List<GameObject>();
         ResetStateGO();
-        _availableObjects.Clear();
+        //_availableObjects.Clear();
 
         for (int x = 0; x < _allObjectsToChange.Length; x++)
         {
@@ -281,11 +288,14 @@ public class GameController : MonoBehaviour
         {
             _gameData.levels[PlayLevel.selectedLvl].bestTime = _timekeeper;
 
-            if (_timekeeper <= 5 && _gameData.levels[PlayLevel.selectedLvl + 1].unlocked == false)
+            if (_timekeeper <= 5 && PlayLevel.selectedLvl < _gameData.levels.Count - 1)
             {
-                _gameData.levels[PlayLevel.selectedLvl + 1].unlocked = true;
-                _newRecord = true;
-                _nextLvlButton.SetActive(true);
+                if (_gameData.levels[PlayLevel.selectedLvl + 1].unlocked == false)
+                {
+                    _gameData.levels[PlayLevel.selectedLvl + 1].unlocked = true;
+                    _newRecord = true;
+                    _nextLvlButton.SetActive(true);
+                }
             }
 
             SaveSystem.Save(_gameData);
