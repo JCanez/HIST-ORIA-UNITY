@@ -1610,11 +1610,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26929471ae6151c4baf3ffb88f775a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementsToChange: 5
-  _positions: []
+  _elementsToChange: 1
+  _totalMistakes: 2
+  _obtElements: []
+  _position: []
   respawnPoint: {fileID: 1712898185}
   destructionPoint: {fileID: 787252017}
   SwatVanGO: {fileID: 1457499134734823992, guid: 265130792648b144d84ff8101e06a36b, type: 3}
+  _nextLvlButton: {fileID: 0}
 --- !u!4 &1667099889
 Transform:
   m_ObjectHideFlags: 0
@@ -2311,6 +2314,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1667099888}
+    - target: {fileID: 2935762147080601822, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2935762147080601822, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.465912
+      objectReference: {fileID: 0}
     - target: {fileID: 6233761849177998678, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -36,21 +36,12 @@ public class ObjectChanger : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Tocado");
-
         if (_gameController.GameReady == true && _touched == false)
         {
             if (_change == true)
-            {
-                Debug.Log("El modelo fue cambiado");
                 _gameController.SuccessObject();
-            }
             else
-            {
-                Debug.Log("El modelo no fue cambiado");
                 _gameController.MistakeObject();
-            }
-
             _touched = true;
         }
     }

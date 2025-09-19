@@ -11973,7 +11973,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26929471ae6151c4baf3ffb88f775a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementsToChange: 1
+  _elementsToChange: 1
+  _totalMistakes: 2
+  _timerBeforeGame: 4
+  _timerInGame: 8
+  _timeToWait: 3
   _obtElements:
   - {fileID: 102383441}
   - {fileID: 354822623}
@@ -31732,12 +31736,20 @@ PrefabInstance:
       value: 0.9000244
       objectReference: {fileID: 0}
     - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 388759609}
+      objectReference: {fileID: 388759614}
     - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
+      value: CalleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1792830384589469559, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -31766,10 +31778,14 @@ PrefabInstance:
     - target: {fileID: 6306292461353254336, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 388759609}
+      objectReference: {fileID: 388759614}
     - target: {fileID: 6306292461353254336, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
+      value: CallScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306292461353254336, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7387043060567743204, guid: ba8ee34a50bb0a44daa5fd20a9f6db00, type: 3}
       propertyPath: m_text

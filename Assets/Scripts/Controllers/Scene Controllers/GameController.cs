@@ -3,28 +3,37 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using System.Collections;
-using UnityEditor.ShaderKeywordFilter;
+using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 {
     GameData _gameData;
 
-    public int elementsToChange;
+    [SerializeField]
+    int _elementsToChange;
     int _success;
+
+    [SerializeField]
+    int _totalMistakes;
     int _mistakes;
 
     bool _gameReady;
-    float _timerInGame;
-    bool _firsTime = true;
+    bool _firstTime = true;
     bool _gameover = false;
     bool _newRecord = false;
 
-    float _timekeeper;
+    [Header("Time")]
+    [SerializeField]
+    float _timerBeforeGame; //TIEMPO QUE SE DARA AL JUGADOR PARA MEMORIZAR LA ESCENA
+    [SerializeField]
+    float _timerInGame; //TIEMPO QUE SE DARA AL JUGADOR PARA MEMORIZAR LA ESCENA
+    [SerializeField]
+    float _timeToWait; //TIEMPO DE ESPERA DEL PRIMER BANNER, ESTE DURA LO QUE DURA LA ANIMACION (3s)
+    float _timekeeper; //TIEMPO TRANSCURRIDO EN IDENTIFICAR LOS OBJETOS CAMBIADOS, SE COMPARA CON EL RECORD
 
-    GameObject[] _listGO;
-    List<GameObject> _listDoble = new List<GameObject>();
+    GameObject[] _allObjectsToChange;
+    List<GameObject> _availableObjects;
 
     [Header("Objects to change")]
     [SerializeField]
@@ -62,10 +71,8 @@ public class GameController : MonoBehaviour
         _sceneController = GetComponent<SceneController>();
 
         _gameReady = false;
-        _timerInGame = 3;
 
-        _success = 0;
-        _mistakes = 0;
+        _timekeeper = 0;
     }
 
     private void Start()
@@ -78,129 +85,87 @@ public class GameController : MonoBehaviour
 
         _obtElements[PlayLevel.selectedLvl].SetActive(true);
 
-        _listGO = GameObject.FindGameObjectsWithTag("ObjectToChange");
+        _allObjectsToChange = GameObject.FindGameObjectsWithTag("ObjectToChange");
         CreateNewList();
 
         if (_gameData.levels[PlayLevel.selectedLvl + 1].unlocked == true)
             _nextLvlButton.SetActive(true);
-
 
         StartCoroutine(GamePhases());
     }
 
     private void Update()
     {
-        //SI ACIERTA A TODOS LOS OBJETOS
-        if (_success == elementsToChange)
-        {
-            _gameReady = false;
-
-            //_UIController.SetPhase(UIController.GamePhase.End);
-            _UIController.EnableCanvas();
-            _UIController.EndGameTextChanger("WINNER");
-
-            _gameover = true;
-
-            _infoGameManager.GuardarTiempo(_timekeeper);
-
-            VerificarData();
-        }//SI SUPERA LOS ERRORES MAXIMOS OP SE TERMINA EL TIEMPO
-        else if (_mistakes == 2 || (_timerInGame <= 0 && _firsTime == false))
-        {
-            _gameReady = false;
-            _gameover = true;
-
-            //_UIController.SetPhase(UIController.GamePhase.End);
-            _UIController.EnableCanvas();
-            _UIController.EndGameTextChanger("YOU LOSE");
-        }
-
-        //CAMBIAMOS EL COLOR DEL TIMER
-        if (_timerInGame < 4 && _firsTime == false)
-        {
-            _UIController.TimerInGame(true, Color.red);
-        }
-
-        _timekeeper += Time.deltaTime;
+        if (_firstTime == false && _gameover == false)
+            _timekeeper += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SaveSystem.DeleteFile();
         }
-
-        Debug.Log("Nivel: " + PlayLevel.selectedLvl);
     }
 
     IEnumerator GamePhases()
     {
-        yield return StartCoroutine(BeforeGamePhases());
-
-        yield return StartCoroutine(InGamePhase());
-
-        //yield return StartCoroutine(EndGamePhase());
+        yield return BeforeGamePhases();
+        yield return InGamePhase();
     }
 
     IEnumerator BeforeGamePhases()
     {
         yield return new WaitForSeconds(1.5f);
 
-        _UIController.UpdateBeforeGameTimer(3);
+        _UIController.UpdateBeforeGameTimer(_timeToWait);
 
         _UIController.StartAnimBackground();
 
-        float timeToWaiting = 3f;
-
-        while (timeToWaiting > 0)
+        for (float t = _timeToWait; t > 0; t--)
         {
+            _UIController.UpdateBeforeGameTimer(t);
             yield return new WaitForSeconds(1f);
-            timeToWaiting--;
-            _UIController.UpdateBeforeGameTimer(timeToWaiting);
-            yield return null;
         }
+
     }
 
     IEnumerator InGamePhase()
     {
         _UIController.SetPhase(UIController.GamePhase.InGame); // Activamos el canvas de In Game
 
-        while (_timerInGame > 0)
+        float timeLeft = _timerBeforeGame;
+        for (; timeLeft > 0; timeLeft--)
         {
+            _UIController.UpdateInGameTimer(timeLeft, "0");
             yield return new WaitForSeconds(1f);
-
-            _timerInGame--;
-            _UIController.UpdateInGameTimer(_timerInGame, "0");
-
-            yield return null;
         }
 
         _UIController.TimerGameObjectActive(false);
 
-        // Activar transicion - Swat Van
-        //SwatVanRespawn();
-        //yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(1.0f); //TIEMPO DE LA TRANSICION
 
         ChangeElements();
+
         yield return new WaitForSeconds(1);
 
-        RestartTimer(10);
-        _firsTime = false;
+        RestartTimer(Mathf.RoundToInt(_timerInGame));
+        _firstTime = false;
 
-        _timekeeper = 0;
+        timeLeft = _timerInGame;
 
-        while (_timerInGame > 0 && _gameover == false)
+        while (timeLeft > 0 && _gameover == false)
         {
-            //yield return new WaitForSeconds(1f);
+            timeLeft -= Time.deltaTime;
+            _UIController.UpdateInGameTimer(timeLeft, "00.00");
 
-            _timerInGame -= Time.deltaTime;
-            _UIController.UpdateInGameTimer(_timerInGame, "00.00");
+            //CAMBIAMOS EL COLOR DEL TIMER
+            if (timeLeft < 4)
+            {
+                _UIController.TimerInGame(true, Color.red);
+            }
 
             yield return null;
         }
-    }
 
-    IEnumerator EndGamePhase()
-    {
-        yield return null;
+        GameOver("YOU LOSE");
     }
 
     public void SuccessObject()
@@ -208,6 +173,16 @@ public class GameController : MonoBehaviour
         _success++;
         _audioController.PlaySuccess();
         _UIController.SuccessOn(_success - 1);
+
+        //SI ACIERTA A TODOS LOS OBJETOS
+        if (_success == _elementsToChange)
+        {
+            GameOver("WINNER");
+
+            _infoGameManager.GuardarTiempo(_timekeeper);
+
+            VerificarData();
+        }
     }
 
     public void MistakeObject()
@@ -215,6 +190,9 @@ public class GameController : MonoBehaviour
         _mistakes++;
         _audioController.PlayFail();
         _UIController.MistakeOn(_mistakes - 1);
+
+        if (_mistakes == _totalMistakes)
+            GameOver("YOU LOSE");
     }
 
     public void RestartTimer(int time)
@@ -226,12 +204,13 @@ public class GameController : MonoBehaviour
 
     private void CreateNewList()
     {
+        _availableObjects = new List<GameObject>();
         ResetStateGO();
-        _listDoble.Clear();
+        _availableObjects.Clear();
 
-        for (int x = 0; x < _listGO.Length; x++)
+        for (int x = 0; x < _allObjectsToChange.Length; x++)
         {
-            _listDoble.Add(_listGO[x]);
+            _availableObjects.Add(_allObjectsToChange[x]);
         }
 
         Shuffle();
@@ -239,77 +218,52 @@ public class GameController : MonoBehaviour
 
     private void ResetStateGO()
     {
-        for (int x = 0; x < _listGO.Length; x++)
+        for (int x = 0; x < _allObjectsToChange.Length; x++)
         {
-            ObjectChanger objectChangerGO = _listGO[x].GetComponent<ObjectChanger>();
+            ObjectChanger objectChangerGO = _allObjectsToChange[x].GetComponent<ObjectChanger>();
 
             objectChangerGO.Change = false;
         }
     }
 
-    private void PrintList()
-    {
-        for (int x = 0; x < _listDoble.Count; x++)
-        {
-            Debug.Log("Elemento " + (x + 1) + ": " + _listDoble[x]);
-        }
-
-        Debug.Log("-----------------------------------------------------");
-    }
-
     private void DeleteElement(int element)
     {
-        //Debug.Log("ELEMENTO ELIMINADO: " + _listDoble[element]);
-        _listDoble.Remove(_listDoble[element]);
+        //Debug.Log("ELEMENTO ELIMINADO: " + _availableObjects[element]);
+        _availableObjects.Remove(_availableObjects[element]);
 
         //PrintList();
     }
 
-    // ESTA FUNCION SE LLAMA DESDE EL BOTON "CHANGE" CAMBIA EL TOTAL DE ELEMENTOS DEFINIDOS Y EL JUEGO SE DA POR INICIADO.
     public void ChangeElements()
     {
         CreateNewList();
 
-        for (int x = 0; x < elementsToChange; x++)
+        for (int x = 0; x < _elementsToChange; x++)
         {
-            int randonNum = Random.Range(0, _listDoble.Count);
-            ObjectChanger objectChangerGO = _listDoble[randonNum].GetComponent<ObjectChanger>();
+            int randonNum = Random.Range(0, _availableObjects.Count);
+            ObjectChanger objectChangerGO = _availableObjects[randonNum].GetComponent<ObjectChanger>();
 
             objectChangerGO.ChangeObject();
             objectChangerGO.Change = true;
 
-            Debug.Log(objectChangerGO.name);
+            //Debug.Log(objectChangerGO.name);
 
             DeleteElement(randonNum);
-
-            //PrintList();
         }
 
         _gameReady = true;
     }
 
-    public void ReloadScene(int indexScene)
-    {
-        // SceneManager.GetActiveScene().buildIndex
-
-        if (_newRecord == true)
-        {
-            PlayLevel.selectedLvl += 1;
-        }
-
-        SceneManager.LoadScene(indexScene);
-    }
-
     private void Shuffle()
     {
-        Random.InitState(System.DateTime.Now.GetHashCode());
+        //Random.InitState(System.DateTime.Now.GetHashCode());
 
-        for (int i = _listDoble.Count - 1; i > 0; i--)
+        for (int i = _availableObjects.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
 
             // swap
-            (_listDoble[i], _listDoble[j]) = (_listDoble[j], _listDoble[i]);
+            (_availableObjects[i], _availableObjects[j]) = (_availableObjects[j], _availableObjects[i]);
         }
     }
 
@@ -319,12 +273,6 @@ public class GameController : MonoBehaviour
         //    audioController.PlaySuccess();
         //else if (value == 2)
         //    audioController.PlayFail();
-    }
-
-    private void SwatVanRespawn()
-    {
-        GameObject swatVanGOI = Instantiate(SwatVanGO, respawnPoint.transform.position, Quaternion.identity);
-        swatVanGOI.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
     private void VerificarData()
@@ -349,35 +297,21 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //ATRIBUTOS
-    public int TotalGOChange
+    private void GameOver(string message)
     {
-        get { return elementsToChange; }
-        set { elementsToChange = value; }
+        _gameReady = false;
+        _gameover = true;
+
+        //_UIController.SetPhase(UIController.GamePhase.End);
+        _UIController.EnableCanvas();
+        _UIController.EndGameTextChanger(message);
     }
 
+    //ATRIBUTOS
     public bool GameReady
     {
         get { return _gameReady; }
         set { _gameReady = value; }
-    }
-
-    public bool Firstime
-    {
-        get { return _firsTime; }
-        set { _firsTime = value; }
-    }
-
-    public int Mistakes
-    {
-        get { return _mistakes; }
-        set { _mistakes = value; }
-    }
-
-    public int Success
-    {
-        get { return _success; }
-        set { _success = value; }
     }
 }
 

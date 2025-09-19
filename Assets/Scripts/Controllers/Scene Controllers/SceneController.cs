@@ -15,8 +15,12 @@ public class SceneController : MonoBehaviour
 
     public void CallScene(int sceneId)
     {
-        PlayLevel.selectedLvl = menuController.CurrentLvl;
         SceneManager.LoadScene(sceneId);
+    }
+
+    public void CalleScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void NextLevel()
