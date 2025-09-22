@@ -1,10 +1,6 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 {
@@ -77,7 +73,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Nivel: " + PlayLevel.selectedLvl + " , Mejor tiempo: " + _gameData.levels[PlayLevel.selectedLvl].bestTime);
+        //Debug.Log("Nivel: " + PlayLevel.selectedLvl + " , Mejor tiempo: " + _gameData.levels[PlayLevel.selectedLvl].bestTime);
 
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         _mainCamera.transform.position = _position[PlayLevel.selectedLvl].transform.position;
@@ -212,7 +208,6 @@ public class GameController : MonoBehaviour
     {
         _availableObjects = new List<GameObject>();
         ResetStateGO();
-        //_availableObjects.Clear();
 
         for (int x = 0; x < _allObjectsToChange.Length; x++)
         {
@@ -251,8 +246,6 @@ public class GameController : MonoBehaviour
 
             objectChangerGO.ChangeObject();
             objectChangerGO.Change = true;
-
-            //Debug.Log(objectChangerGO.name);
 
             DeleteElement(randonNum);
         }

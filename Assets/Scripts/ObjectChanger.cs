@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ObjectChanger : MonoBehaviour
 {
@@ -66,6 +64,8 @@ public class ObjectChanger : MonoBehaviour
     public void ChangeObject()
     {
         int valor = Random.Range(0, objectsToChange.Length);
+
+        Debug.Log(objectsToChange[valor].name);
 
         Mesh newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
 
