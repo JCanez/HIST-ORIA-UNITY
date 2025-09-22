@@ -1,0 +1,5 @@
+* Iconos
+* Sonidos
+* Armar niveles
+* Armar nivel intro
+* Transiciones

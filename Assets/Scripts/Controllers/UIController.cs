@@ -19,7 +19,6 @@ public class UIController : MonoBehaviour
     TMP_Text _timerInGameTxt; // Tiempo para visualizar y/o encontrar los objetos que han cambiasdo
     Animator _timerInGameAnim;
 
-
     [SerializeField] Sprite _successOnImg;
     [SerializeField] Sprite _mistakeOnImg;
 
@@ -38,12 +37,6 @@ public class UIController : MonoBehaviour
         _timerInGameAnim = timerInGameGO.GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        //totalObjectToChange = totalObjectToChange.GetComponent<TextMeshProUGUI>();
-        //totalObjectToChange.text = elementsToChange.ToString();
-    }
-
     public void EnableCanvas()
     {
         endGameCanvas.SetActive(true);
@@ -57,6 +50,11 @@ public class UIController : MonoBehaviour
     public void MistakeOn(int mistakeNum)
     {
         _mistakesImg[mistakeNum].sprite = _mistakeOnImg;
+    }
+
+    public void StarSetUp()
+    {
+
     }
 
     public IEnumerator BeforeGamePhase()
@@ -123,5 +121,4 @@ public class UIController : MonoBehaviour
     {
         timerInGameGO.SetActive(state);
     }
-    // ATRIBUTOS
 }

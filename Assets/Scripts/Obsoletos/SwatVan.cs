@@ -1,0 +1,41 @@
+using UnityEngine;
+
+public class SwatVan : MonoBehaviour
+{
+    public float velocidad;
+
+    public GameObject frontWheel;
+    public GameObject backWheel;
+
+    GameController _gameController;
+
+    float time = 0;
+
+    private void Awake()
+    {
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
+
+    void Update()
+    {
+        transform.Translate(Vector3.forward * velocidad * Time.deltaTime);
+
+        frontWheel.transform.Rotate(-5, 0, 0);
+        backWheel.transform.Rotate(-5, 0, 0);
+
+        time += Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "ChangePoint")
+        {
+            _gameController.ChangeElements();
+        }
+
+        if (other.name == "Destroy Point")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+}
