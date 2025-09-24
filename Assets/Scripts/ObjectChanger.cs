@@ -63,19 +63,32 @@ public class ObjectChanger : MonoBehaviour
     //ESTE METODO EVALUA Y CAMBIA AL MODELO ACTUAL POR OTRO
     public void ChangeObject()
     {
-        int valor = Random.Range(0, objectsToChange.Length);
+        //int valor = Random.Range(0, objectsToChange.Length);
 
-        Debug.Log(objectsToChange[valor].name);
+        //Debug.Log(objectsToChange[valor].name);
 
-        Mesh newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
+        //Mesh newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
 
-        if (meshFilterGO.sharedMesh != newMesh)
+        //if (meshFilterGO.sharedMesh != newMesh)
+        //{
+        //    Destroy(newGO);
+        //    CreateGameObject(valor);
+        //}
+        //else
+        //    ChangeObject();
+
+        int valor;
+        Mesh newMesh;
+
+        do
         {
-            Destroy(newGO);
-            CreateGameObject(valor);
+            valor = Random.Range(0, objectsToChange.Length);
+            newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
         }
-        else
-            ChangeObject();
+        while (meshFilterGO.sharedMesh == newMesh);
+
+        Destroy(newGO);
+        CreateGameObject(valor);
     }
 
     public bool Change
