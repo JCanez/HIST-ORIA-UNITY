@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectChanger : MonoBehaviour
@@ -9,7 +10,8 @@ public class ObjectChanger : MonoBehaviour
     MeshFilter meshFilterGO;
     MeshCollider meshColliderGO;
 
-    public GameObject[] objectsToChange;
+    //public GameObject[] objectsToChange;
+    public List<GameObject> objectsToChange;
     public bool _change;
     bool _touched;
 
@@ -46,7 +48,7 @@ public class ObjectChanger : MonoBehaviour
 
     private void CreateGameObject()
     {
-        newGO = Instantiate(objectsToChange[Random.Range(0, objectsToChange.Length)], transform.position, transform.rotation, transform);
+        newGO = Instantiate(objectsToChange[Random.Range(0, objectsToChange.Count)], transform.position, transform.rotation, transform);
         meshFilterGO = newGO.GetComponent<MeshFilter>();
     }
 
@@ -82,7 +84,7 @@ public class ObjectChanger : MonoBehaviour
 
         do
         {
-            valor = Random.Range(0, objectsToChange.Length);
+            valor = Random.Range(0, objectsToChange.Count);
             newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
         }
         while (meshFilterGO.sharedMesh == newMesh);

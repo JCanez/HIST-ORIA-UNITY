@@ -28,8 +28,8 @@ public class GameController : MonoBehaviour
     float _timeToWait; //TIEMPO DE ESPERA DEL PRIMER BANNER, ESTE DURA LO QUE DURA LA ANIMACION (3s)
     float _timekeeper; //TIEMPO TRANSCURRIDO EN IDENTIFICAR LOS OBJETOS CAMBIADOS, SE COMPARA CON EL RECORD
 
-    GameObject[] _allObjectsToChange;
-    List<GameObject> _availableObjects;
+    List<GameObject> _allObjectsToChange;
+    //List<GameObject> _availableObjects;
 
     [Header("Objects to change")]
     [SerializeField]
@@ -81,7 +81,8 @@ public class GameController : MonoBehaviour
 
         _obtElements[PlayLevel.selectedLvl].SetActive(true);
 
-        _allObjectsToChange = GameObject.FindGameObjectsWithTag("ObjectToChange");
+        _allObjectsToChange = new List<GameObject>(GameObject.FindGameObjectsWithTag("ObjectToChange"));
+
         CreateNewList();
 
         if (PlayLevel.selectedLvl < _gameData.levels.Count - 1)
@@ -206,20 +207,20 @@ public class GameController : MonoBehaviour
 
     private void CreateNewList()
     {
-        _availableObjects = new List<GameObject>();
+        //_availableObjects = new List<GameObject>();
         ResetStateGO();
 
-        for (int x = 0; x < _allObjectsToChange.Length; x++)
-        {
-            _availableObjects.Add(_allObjectsToChange[x]);
-        }
+        //for (int x = 0; x < _allObjectsToChange.Count; x++)
+        //{
+        //    _availableObjects.Add(_allObjectsToChange[x]);
+        //}
 
         Shuffle();
     }
 
     private void ResetStateGO()
     {
-        for (int x = 0; x < _allObjectsToChange.Length; x++)
+        for (int x = 0; x < _allObjectsToChange.Count; x++)
         {
             ObjectChanger objectChangerGO = _allObjectsToChange[x].GetComponent<ObjectChanger>();
 
@@ -230,7 +231,7 @@ public class GameController : MonoBehaviour
     private void DeleteElement(int element)
     {
         //Debug.Log("ELEMENTO ELIMINADO: " + _availableObjects[element]);
-        _availableObjects.Remove(_availableObjects[element]);
+        _allObjectsToChange.Remove(_allObjectsToChange[element]);
 
         //PrintList();
     }
@@ -241,8 +242,8 @@ public class GameController : MonoBehaviour
 
         for (int x = 0; x < _elementsToChange; x++)
         {
-            int randonNum = Random.Range(0, _availableObjects.Count);
-            ObjectChanger objectChangerGO = _availableObjects[randonNum].GetComponent<ObjectChanger>();
+            int randonNum = Random.Range(0, _allObjectsToChange.Count);
+            ObjectChanger objectChangerGO = _allObjectsToChange[randonNum].GetComponent<ObjectChanger>();
 
             objectChangerGO.ChangeObject();
             objectChangerGO.Change = true;
@@ -257,12 +258,12 @@ public class GameController : MonoBehaviour
     {
         //Random.InitState(System.DateTime.Now.GetHashCode());
 
-        for (int i = _availableObjects.Count - 1; i > 0; i--)
+        for (int i = _allObjectsToChange.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
 
             // swap
-            (_availableObjects[i], _availableObjects[j]) = (_availableObjects[j], _availableObjects[i]);
+            (_allObjectsToChange[i], _allObjectsToChange[j]) = (_allObjectsToChange[j], _allObjectsToChange[i]);
         }
     }
 

@@ -3167,6 +3167,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527766458173321896, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
+      propertyPath: lsita.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527766458173321896, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: objectsToChange.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -7989,7 +7993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10452,7 +10456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10654,7 +10658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16095,7 +16099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26929471ae6151c4baf3ffb88f775a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _elementsToChange: 5
+  _elementsToChange: 7
   _totalMistakes: 3
   _timerBeforeGame: 15
   _timerInGame: 15
@@ -18503,7 +18507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24511,7 +24515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75301,7 +75305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513550355285037361, guid: 733c6496767c8ed4eab6bbcdb7f1d9a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
