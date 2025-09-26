@@ -40,14 +40,11 @@ public class GameController : MonoBehaviour
     private GameObject[] _position;
     private GameObject _mainCamera;
 
-    [Header("Swat Van")]
-    public GameObject respawnPoint;
-    public GameObject destructionPoint;
-    public GameObject SwatVanGO;
-
     [Header("UI")]
     [SerializeField]
     GameObject _nextLvlButton;
+    [SerializeField]
+    GameObject _transitionInGame;
 
     AudioController _audioController;
     UIController _UIController;
@@ -141,11 +138,13 @@ public class GameController : MonoBehaviour
 
         _UIController.TimerGameObjectActive(false);
 
-        yield return new WaitForSeconds(1.0f); //TIEMPO DE LA TRANSICION
+        _transitionInGame.SetActive(true);
+        yield return new WaitForSeconds(1.30f); //TIEMPO DE LA TRANSICION
 
         ChangeElements();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.30f);
+        _transitionInGame.SetActive(false);
 
         RestartTimer(Mathf.RoundToInt(_timerInGame));
         _firstTime = false;
@@ -162,6 +161,9 @@ public class GameController : MonoBehaviour
             {
                 _UIController.TimerInGame(true, Color.red);
             }
+
+            if (timeLeft <= 0)
+                GameOver("YOU LOSE");
 
             yield return null;
         }
@@ -207,14 +209,7 @@ public class GameController : MonoBehaviour
 
     private void CreateNewList()
     {
-        //_availableObjects = new List<GameObject>();
         ResetStateGO();
-
-        //for (int x = 0; x < _allObjectsToChange.Count; x++)
-        //{
-        //    _availableObjects.Add(_allObjectsToChange[x]);
-        //}
-
         Shuffle();
     }
 
@@ -230,10 +225,7 @@ public class GameController : MonoBehaviour
 
     private void DeleteElement(int element)
     {
-        //Debug.Log("ELEMENTO ELIMINADO: " + _availableObjects[element]);
         _allObjectsToChange.Remove(_allObjectsToChange[element]);
-
-        //PrintList();
     }
 
     public void ChangeElements()
@@ -256,23 +248,12 @@ public class GameController : MonoBehaviour
 
     private void Shuffle()
     {
-        //Random.InitState(System.DateTime.Now.GetHashCode());
-
         for (int i = _allObjectsToChange.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
 
-            // swap
             (_allObjectsToChange[i], _allObjectsToChange[j]) = (_allObjectsToChange[j], _allObjectsToChange[i]);
         }
-    }
-
-    public void PlaySound(int value)
-    {
-        //if (value == 1)
-        //    audioController.PlaySuccess();
-        //else if (value == 2)
-        //    audioController.PlayFail();
     }
 
     private void VerificarData()
@@ -309,8 +290,6 @@ public class GameController : MonoBehaviour
         _UIController.EnableCanvas();
         _UIController.EndGameTextChanger(message);
     }
-
-
 
     //ATRIBUTOS
     public bool GameReady

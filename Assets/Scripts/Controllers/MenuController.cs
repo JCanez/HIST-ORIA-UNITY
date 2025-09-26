@@ -120,6 +120,12 @@ public class MenuController : MonoBehaviour
             _bestTimeText.text = "00.00s";
         }
 
+        if (_currentLvl == 9)
+        {
+            _RightArrow.SetActive(false);
+            _LeftArrow.SetActive(true);
+        }
+
         if (!_gameData.levels[_currentLvl].unlocked)
             _lockElements.SetActive(true);
         else

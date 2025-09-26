@@ -4,18 +4,13 @@ using UnityEngine;
 public class ObjectChanger : MonoBehaviour
 {
     GameController _gameController;
-    AudioController _audioController;
 
-    GameObject newGO;
-    MeshFilter meshFilterGO;
-    MeshCollider meshColliderGO;
+    GameObject currentInstance;   // instancia en la escena
+    GameObject currentPrefab;     // referencia al prefab de origen
 
-    //public GameObject[] objectsToChange;
     public List<GameObject> objectsToChange;
     public bool _change;
     bool _touched;
-
-    int contador;
 
     private void Awake()
     {
@@ -28,69 +23,41 @@ public class ObjectChanger : MonoBehaviour
     private void Start()
     {
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        _audioController = GameObject.FindGameObjectWithTag("GameController").GetComponent<AudioController>();
 
-        //Creamos los primeros modelos en escena
         CreateGameObject();
     }
 
     private void OnMouseDown()
     {
-        if (_gameController.GameReady == true && _touched == false)
+        if (_gameController.GameReady && !_touched)
         {
-            if (_change == true)
+            if (_change)
                 _gameController.SuccessObject();
             else
                 _gameController.MistakeObject();
+
             _touched = true;
         }
     }
 
     private void CreateGameObject()
     {
-        newGO = Instantiate(objectsToChange[Random.Range(0, objectsToChange.Count)], transform.position, transform.rotation, transform);
-        meshFilterGO = newGO.GetComponent<MeshFilter>();
+        currentPrefab = objectsToChange[Random.Range(0, objectsToChange.Count)];
+        currentInstance = Instantiate(currentPrefab, transform.position, transform.rotation, transform);
     }
 
-    private void CreateGameObject(int valor)
-    {
-        newGO = Instantiate(objectsToChange[valor], transform.position, transform.rotation, transform);
-        meshFilterGO = newGO.GetComponent<MeshFilter>();
-    }
-
-    /*TENGO QUE CAMBIAR CIERTA CANTIDAD DE ELEMENTOS DE FORMA ALEATORIO, 
-     * PUEDO CAMBIARLOS AQUI MISMO SIN PROBLEMA, PERO TENGO QUE HACER QUE LOS ELEMENTOS CAMBIAS SE MARQUEN,
-     * AL PICARLOS CON EL MOUSE, ESTOS DEBEN DE AVISAR SI ERA CORRECTO O INCORRECTO*/
-
-    //ESTE METODO EVALUA Y CAMBIA AL MODELO ACTUAL POR OTRO
     public void ChangeObject()
     {
-        //int valor = Random.Range(0, objectsToChange.Length);
+        // Creamos una lista temporal sin el prefab actual
+        List<GameObject> opciones = new List<GameObject>(objectsToChange);
+        opciones.Remove(currentPrefab);
 
-        //Debug.Log(objectsToChange[valor].name);
+        // Escogemos uno distinto
+        currentPrefab = opciones[Random.Range(0, opciones.Count)];
 
-        //Mesh newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
-
-        //if (meshFilterGO.sharedMesh != newMesh)
-        //{
-        //    Destroy(newGO);
-        //    CreateGameObject(valor);
-        //}
-        //else
-        //    ChangeObject();
-
-        int valor;
-        Mesh newMesh;
-
-        do
-        {
-            valor = Random.Range(0, objectsToChange.Count);
-            newMesh = objectsToChange[valor].GetComponent<MeshFilter>().sharedMesh;
-        }
-        while (meshFilterGO.sharedMesh == newMesh);
-
-        Destroy(newGO);
-        CreateGameObject(valor);
+        // Cambiamos la instancia
+        Destroy(currentInstance);
+        currentInstance = Instantiate(currentPrefab, transform.position, transform.rotation, transform);
     }
 
     public bool Change
